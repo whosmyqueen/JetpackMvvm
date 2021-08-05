@@ -94,7 +94,7 @@ dependencies {
     implementation "com.afollestad.material-dialogs:datetime:3.3.0"
     implementation "com.afollestad.material-dialogs:bottomsheets:3.3.0"
     //util
-    implementation 'com.blankj:utilcodex:1.26.0'
+    implementation 'com.blankj:utilcodex:1.30.6'
     //底部bottomBar
     implementation 'com.github.ittianyu:BottomNavigationViewEx:2.0.4'
     //RevealLayout
@@ -102,8 +102,8 @@ dependencies {
     //微信开源项目，替代SP
     implementation 'com.tencent:mmkv:1.0.22'
     //项目核心框架
-    implementation project(path: ':JetpackMvvm')
-//    implementation 'me.hegj:JetpackMvvm:1.2.0'
+//    implementation project(path: ':JetpackMvvm')
+    implementation 'com.github.hegaojian:JetpackMvvm:1.2.5'
     //轮播图
     implementation 'com.github.zhpanvip:BannerViewPager:3.1.5'
     //BaseAdapter
