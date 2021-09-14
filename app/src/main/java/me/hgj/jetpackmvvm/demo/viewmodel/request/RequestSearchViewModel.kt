@@ -1,5 +1,6 @@
 package me.hgj.jetpackmvvm.demo.viewmodel.request
 
+import androidx.lifecycle.MutableLiveData
 import me.hgj.jetpackmvvm.base.viewmodel.BaseViewModel
 import me.hgj.jetpackmvvm.callback.livedata.event.EventLiveData
 import me.hgj.jetpackmvvm.demo.app.network.apiService
@@ -21,11 +22,11 @@ class RequestSearchViewModel : BaseViewModel() {
     var pageNo = 0
 
     //搜索热词数据
-    var hotData: EventLiveData<ResultState<ArrayList<SearchResponse>>> = EventLiveData()
+    var hotData: MutableLiveData<ResultState<ArrayList<SearchResponse>>> = MutableLiveData()
 
     //搜索结果数据
-    var seachResultData: EventLiveData<ResultState<ApiPagerResponse<ArrayList<AriticleResponse>>>> =
-        EventLiveData()
+    var seachResultData: MutableLiveData<ResultState<ApiPagerResponse<ArrayList<AriticleResponse>>>> =
+        MutableLiveData()
 
     //搜索历史词数据
     var historyData: EventLiveData<ArrayList<String>> = EventLiveData()

@@ -1,7 +1,7 @@
 package me.hgj.jetpackmvvm.demo.viewmodel.request
 
+import androidx.lifecycle.MutableLiveData
 import me.hgj.jetpackmvvm.base.viewmodel.BaseViewModel
-import me.hgj.jetpackmvvm.callback.livedata.event.EventLiveData
 import me.hgj.jetpackmvvm.demo.app.network.apiService
 import me.hgj.jetpackmvvm.demo.data.model.bean.UserInfo
 import me.hgj.jetpackmvvm.demo.data.repository.request.HttpRequestCoroutine
@@ -16,7 +16,7 @@ import me.hgj.jetpackmvvm.state.ResultState
 class RequestLoginRegisterViewModel : BaseViewModel() {
 
     //方式1  自动脱壳过滤处理请求结果，判断结果是否成功
-    var loginResult = EventLiveData<ResultState<UserInfo>>()
+    var loginResult = MutableLiveData<ResultState<UserInfo>>()
 
     //方式2  不用框架帮脱壳，判断结果是否成功
 //    var loginResult2 = EventLiveData<ResultState<ApiResponse<UserInfo>>>()

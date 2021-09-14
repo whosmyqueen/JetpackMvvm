@@ -1,7 +1,7 @@
 package me.hgj.jetpackmvvm.demo.viewmodel.request
 
+import androidx.lifecycle.MutableLiveData
 import me.hgj.jetpackmvvm.base.viewmodel.BaseViewModel
-import me.hgj.jetpackmvvm.callback.livedata.event.EventLiveData
 import me.hgj.jetpackmvvm.demo.app.network.apiService
 import me.hgj.jetpackmvvm.demo.app.network.stateCallback.ListDataUiState
 import me.hgj.jetpackmvvm.demo.data.model.bean.AriticleResponse
@@ -18,9 +18,9 @@ class RequestPublicNumberViewModel : BaseViewModel() {
 
     var pageNo = 1
 
-    var titleData: EventLiveData<ResultState<ArrayList<ClassifyResponse>>> = EventLiveData()
+    var titleData: MutableLiveData<ResultState<ArrayList<ClassifyResponse>>> = MutableLiveData()
 
-    var publicDataState: EventLiveData<ListDataUiState<AriticleResponse>> = EventLiveData()
+    var publicDataState: MutableLiveData<ListDataUiState<AriticleResponse>> = MutableLiveData()
 
 
     fun getPublicTitleData() {
