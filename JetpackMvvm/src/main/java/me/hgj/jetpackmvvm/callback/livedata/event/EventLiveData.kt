@@ -7,4 +7,4 @@ import com.kunminx.architecture.ui.callback.UnPeekLiveData
  * 在Activity中observe 调用observeInActivity 在Fragment中使用调用 observe
  * 具体写法请参考 https://github.com/KunMinX/UnPeek-LiveData的示例
  */
-class EventLiveData<T> : UnPeekLiveData<T>()
+open class EventLiveData<T> : UnPeekLiveData<T>()

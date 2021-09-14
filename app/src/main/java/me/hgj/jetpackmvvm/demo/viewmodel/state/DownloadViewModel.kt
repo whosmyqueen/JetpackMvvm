@@ -1,9 +1,9 @@
 package me.hgj.jetpackmvvm.demo.viewmodel.state
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import me.hgj.jetpackmvvm.base.viewmodel.BaseViewModel
+import me.hgj.jetpackmvvm.callback.livedata.event.EventLiveData
 import me.hgj.jetpackmvvm.ext.download.DownLoadManager
 import me.hgj.jetpackmvvm.ext.download.DownloadResultState
 import me.hgj.jetpackmvvm.ext.download.downLoadExt
@@ -15,7 +15,7 @@ import me.hgj.jetpackmvvm.ext.download.downLoadExt
 
 class DownloadViewModel : BaseViewModel() {
 
-    var downloadData: MutableLiveData<DownloadResultState> = MutableLiveData()
+    var downloadData: EventLiveData<DownloadResultState> = EventLiveData()
 
     /**
      * Apk普通下载 框架自带

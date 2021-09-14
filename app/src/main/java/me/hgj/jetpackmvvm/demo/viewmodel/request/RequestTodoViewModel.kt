@@ -1,7 +1,7 @@
 package me.hgj.jetpackmvvm.demo.viewmodel.request
 
-import androidx.lifecycle.MutableLiveData
 import me.hgj.jetpackmvvm.base.viewmodel.BaseViewModel
+import me.hgj.jetpackmvvm.callback.livedata.event.EventLiveData
 import me.hgj.jetpackmvvm.demo.app.network.apiService
 import me.hgj.jetpackmvvm.demo.app.network.stateCallback.ListDataUiState
 import me.hgj.jetpackmvvm.demo.app.network.stateCallback.UpdateUiState
@@ -18,16 +18,16 @@ class RequestTodoViewModel : BaseViewModel() {
     var pageNo = 1
 
     //列表集合数据
-    var todoDataState = MutableLiveData<ListDataUiState<TodoResponse>>()
+    var todoDataState = EventLiveData<ListDataUiState<TodoResponse>>()
 
     //删除的回调数据
-    var delDataState = MutableLiveData<UpdateUiState<Int>>()
+    var delDataState = EventLiveData<UpdateUiState<Int>>()
 
     //完成的回调数据
-    var doneDataState = MutableLiveData<UpdateUiState<Int>>()
+    var doneDataState = EventLiveData<UpdateUiState<Int>>()
 
     //添加修改的回调数据
-    var updateDataState = MutableLiveData<UpdateUiState<Int>>()
+    var updateDataState = EventLiveData<UpdateUiState<Int>>()
 
 
     fun getTodoData(isRefresh: Boolean) {

@@ -1,6 +1,6 @@
 package me.hgj.jetpackmvvm.ext.download
 
-import androidx.lifecycle.MutableLiveData
+import me.hgj.jetpackmvvm.callback.livedata.event.EventLiveData
 
 /**
  * @author : hgj
@@ -8,7 +8,7 @@ import androidx.lifecycle.MutableLiveData
  *
  */
 
-fun downLoadExt(downloadResultState: MutableLiveData<DownloadResultState>): OnDownLoadListener {
+fun downLoadExt(downloadResultState: EventLiveData<DownloadResultState>): OnDownLoadListener {
     return object : OnDownLoadListener {
         override fun onDownLoadPrepare(key: String) {
             //开始下载

@@ -1,7 +1,7 @@
 package me.hgj.jetpackmvvm.demo.viewmodel.request
 
-import androidx.lifecycle.MutableLiveData
 import me.hgj.jetpackmvvm.base.viewmodel.BaseViewModel
+import me.hgj.jetpackmvvm.callback.livedata.event.EventLiveData
 import me.hgj.jetpackmvvm.demo.app.network.apiService
 import me.hgj.jetpackmvvm.demo.app.network.stateCallback.ListDataUiState
 import me.hgj.jetpackmvvm.demo.data.model.bean.AriticleResponse
@@ -17,9 +17,9 @@ class RequestLookInfoViewModel : BaseViewModel() {
 
     var pageNo = 1
 
-    var shareListDataUistate = MutableLiveData<ListDataUiState<AriticleResponse>>()
+    var shareListDataUistate = EventLiveData<ListDataUiState<AriticleResponse>>()
 
-    var shareResponse = MutableLiveData<ShareResponse>()
+    var shareResponse = EventLiveData<ShareResponse>()
 
     fun getLookinfo(id: Int, isRefresh: Boolean) {
         if (isRefresh) {

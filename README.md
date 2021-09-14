@@ -290,10 +290,10 @@ data class ApiResponse<T>(var errorCode: Int, var errorMsg: String, var data: T)
 class RequestLoginViewModel: BaseViewModel {
 
   //自动脱壳过滤处理请求结果，自动判断结果是否成功
-    var loginResult = MutableLiveData<ResultState<UserInfo>>()
+    var loginResult = EventLiveData<ResultState<UserInfo>>()
     
   //不用框架帮脱壳
-    var loginResult2 = MutableLiveData<ResultState<ApiResponse<UserInfo>>>()
+    var loginResult2 = EventLiveData<ResultState<ApiResponse<UserInfo>>>()
     
   fun login(username: String, password: String){
    //1.在 Activity/Fragment的监听回调中拿到已脱壳的数据（项目有基类的可以用）

@@ -1,6 +1,5 @@
 package me.hgj.jetpackmvvm.ext.util
 
-import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import java.util.regex.Pattern
 

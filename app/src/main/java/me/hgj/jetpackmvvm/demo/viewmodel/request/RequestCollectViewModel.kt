@@ -1,7 +1,7 @@
 package me.hgj.jetpackmvvm.demo.viewmodel.request
 
-import androidx.lifecycle.MutableLiveData
 import me.hgj.jetpackmvvm.base.viewmodel.BaseViewModel
+import me.hgj.jetpackmvvm.callback.livedata.event.EventLiveData
 import me.hgj.jetpackmvvm.demo.app.network.apiService
 import me.hgj.jetpackmvvm.demo.app.network.stateCallback.CollectUiState
 import me.hgj.jetpackmvvm.demo.app.network.stateCallback.ListDataUiState
@@ -19,16 +19,16 @@ open class RequestCollectViewModel : BaseViewModel() {
     private var pageNo = 0
 
     //收藏文章
-    val collectUiState: MutableLiveData<CollectUiState> = MutableLiveData()
+    val collectUiState: EventLiveData<CollectUiState> = EventLiveData()
 
     //收藏网址
-    val collectUrlUiState: MutableLiveData<CollectUiState> = MutableLiveData()
+    val collectUrlUiState: EventLiveData<CollectUiState> = EventLiveData()
 
     //收藏de文章数据
-    var ariticleDataState: MutableLiveData<ListDataUiState<CollectResponse>> = MutableLiveData()
+    var ariticleDataState: EventLiveData<ListDataUiState<CollectResponse>> = EventLiveData()
 
     //收藏de网址数据
-    var urlDataState: MutableLiveData<ListDataUiState<CollectUrlResponse>> = MutableLiveData()
+    var urlDataState: EventLiveData<ListDataUiState<CollectUrlResponse>> = EventLiveData()
 
     /**
      * 收藏 文章

@@ -1,9 +1,9 @@
 package me.hgj.jetpackmvvm.demo.app.ext.download
 
-import androidx.lifecycle.MutableLiveData
 import com.liulishuo.filedownloader.BaseDownloadTask
 import com.liulishuo.filedownloader.FileDownloadSampleListener
 import com.liulishuo.filedownloader.exception.FileDownloadOutOfSpaceException
+import me.hgj.jetpackmvvm.callback.livedata.event.EventLiveData
 import me.hgj.jetpackmvvm.ext.download.DownloadResultState
 
 /**
@@ -12,7 +12,7 @@ import me.hgj.jetpackmvvm.ext.download.DownloadResultState
  *
  */
 
-fun BaseDownloadTask.listenerExt(downloadResultState: MutableLiveData<DownloadResultState>): BaseDownloadTask {
+fun BaseDownloadTask.listenerExt(downloadResultState: EventLiveData<DownloadResultState>): BaseDownloadTask {
 
     this.listener = object : FileDownloadSampleListener() {
         override fun pending(task: BaseDownloadTask, soFarBytes: Int, totalBytes: Int) {

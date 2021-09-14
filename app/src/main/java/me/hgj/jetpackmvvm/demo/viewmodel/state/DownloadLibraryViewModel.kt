@@ -1,9 +1,9 @@
 package me.hgj.jetpackmvvm.demo.viewmodel.state
 
-import androidx.lifecycle.MutableLiveData
 import com.liulishuo.filedownloader.BaseDownloadTask
 import com.liulishuo.filedownloader.FileDownloader
 import me.hgj.jetpackmvvm.base.viewmodel.BaseViewModel
+import me.hgj.jetpackmvvm.callback.livedata.event.EventLiveData
 import me.hgj.jetpackmvvm.demo.app.ext.download.listenerExt
 import me.hgj.jetpackmvvm.ext.download.DownloadResultState
 
@@ -12,7 +12,7 @@ import me.hgj.jetpackmvvm.ext.download.DownloadResultState
  * @date   : 2020/7/14
  */
 class DownloadLibraryViewModel : BaseViewModel() {
-    var downloadData: MutableLiveData<DownloadResultState> = MutableLiveData()
+    var downloadData: EventLiveData<DownloadResultState> = EventLiveData()
 
     private var baseDownloadTask: BaseDownloadTask? = null
 

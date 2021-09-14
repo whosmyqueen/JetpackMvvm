@@ -1,7 +1,7 @@
 package me.hgj.jetpackmvvm.demo.viewmodel.request
 
-import androidx.lifecycle.MutableLiveData
 import me.hgj.jetpackmvvm.base.viewmodel.BaseViewModel
+import me.hgj.jetpackmvvm.callback.livedata.event.EventLiveData
 import me.hgj.jetpackmvvm.demo.app.network.apiService
 import me.hgj.jetpackmvvm.demo.app.network.stateCallback.ListDataUiState
 import me.hgj.jetpackmvvm.demo.data.model.bean.AriticleResponse
@@ -20,20 +20,20 @@ class RequestTreeViewModel : BaseViewModel() {
     private var pageNo = 0
 
     //广场数据
-    var plazaDataState: MutableLiveData<ListDataUiState<AriticleResponse>> = MutableLiveData()
+    var plazaDataState: EventLiveData<ListDataUiState<AriticleResponse>> = EventLiveData()
 
     //每日一问数据
-    var askDataState: MutableLiveData<ListDataUiState<AriticleResponse>> = MutableLiveData()
+    var askDataState: EventLiveData<ListDataUiState<AriticleResponse>> = EventLiveData()
 
     //体系子栏目列表数据
-    var systemChildDataState: MutableLiveData<ListDataUiState<AriticleResponse>> = MutableLiveData()
+    var systemChildDataState: EventLiveData<ListDataUiState<AriticleResponse>> = EventLiveData()
 
     //体系数据
-    var systemDataState: MutableLiveData<ListDataUiState<SystemResponse>> = MutableLiveData()
+    var systemDataState: EventLiveData<ListDataUiState<SystemResponse>> = EventLiveData()
 
     //导航数据
-    var navigationDataState: MutableLiveData<ListDataUiState<NavigationResponse>> =
-        MutableLiveData()
+    var navigationDataState: EventLiveData<ListDataUiState<NavigationResponse>> =
+        EventLiveData()
 
     /**
      * 获取广场数据

@@ -10881,9 +10881,9 @@ me.hgj.jetpackmvvm.demo.app.ext.LoadingDialogExtKt -> me.hgj.jetpackmvvm.demo.ap
     void showLoadingExt(androidx.appcompat.app.AppCompatActivity,java.lang.String) -> c
     void showLoadingExt(androidx.fragment.app.Fragment,java.lang.String) -> d
 me.hgj.jetpackmvvm.demo.app.ext.download.AppDownloaderExtKt -> me.hgj.jetpackmvvm.demo.app.ext.b.a:
-    com.liulishuo.filedownloader.BaseDownloadTask listenerExt(com.liulishuo.filedownloader.BaseDownloadTask,androidx.lifecycle.MutableLiveData) -> a
+    com.liulishuo.filedownloader.BaseDownloadTask listenerExt(com.liulishuo.filedownloader.BaseDownloadTask,androidx.lifecycle.EventLiveData) -> a
 me.hgj.jetpackmvvm.demo.app.ext.download.AppDownloaderExtKt$listenerExt$1 -> me.hgj.jetpackmvvm.demo.app.ext.b.a$a:
-    androidx.lifecycle.MutableLiveData $downloadResultState -> a
+    androidx.lifecycle.EventLiveData $downloadResultState -> a
     void completed(com.liulishuo.filedownloader.BaseDownloadTask) -> b
     void error(com.liulishuo.filedownloader.BaseDownloadTask,java.lang.Throwable) -> d
     void paused(com.liulishuo.filedownloader.BaseDownloadTask,int,int) -> f
@@ -12820,17 +12820,17 @@ me.hgj.jetpackmvvm.demo.ui.fragment.web.WebFragment$initView$$inlined$run$lambda
 me.hgj.jetpackmvvm.demo.ui.fragment.web.WebFragment$lazyLoadData$1 -> me.hgj.jetpackmvvm.demo.ui.fragment.web.WebFragment$lazyLoadData$1:
     me.hgj.jetpackmvvm.demo.ui.fragment.web.WebFragment this$0 -> a
 me.hgj.jetpackmvvm.demo.viewmodel.request.RequestAriticleViewModel -> me.hgj.jetpackmvvm.demo.viewmodel.request.RequestAriticleViewModel:
-    androidx.lifecycle.MutableLiveData addData -> c
+    androidx.lifecycle.EventLiveData addData -> c
     int pageNo -> b
-    androidx.lifecycle.MutableLiveData shareDataState -> d
-    androidx.lifecycle.MutableLiveData delDataState -> e
+    androidx.lifecycle.EventLiveData shareDataState -> d
+    androidx.lifecycle.EventLiveData delDataState -> e
     void addAriticle(java.lang.String,java.lang.String) -> b
     void deleteShareData(int,int) -> c
-    androidx.lifecycle.MutableLiveData getAddData() -> d
-    androidx.lifecycle.MutableLiveData getDelDataState() -> e
+    androidx.lifecycle.EventLiveData getAddData() -> d
+    androidx.lifecycle.EventLiveData getDelDataState() -> e
     int getPageNo() -> f
     void getShareData(boolean) -> g
-    androidx.lifecycle.MutableLiveData getShareDataState() -> h
+    androidx.lifecycle.EventLiveData getShareDataState() -> h
     void setPageNo(int) -> i
 me.hgj.jetpackmvvm.demo.viewmodel.request.RequestAriticleViewModel$deleteShareData$2 -> me.hgj.jetpackmvvm.demo.viewmodel.request.RequestAriticleViewModel$deleteShareData$2:
     void invoke(java.lang.Object) -> a
@@ -12841,21 +12841,21 @@ me.hgj.jetpackmvvm.demo.viewmodel.request.RequestAriticleViewModel$getShareData$
 me.hgj.jetpackmvvm.demo.viewmodel.request.RequestAriticleViewModel$getShareData$3 -> me.hgj.jetpackmvvm.demo.viewmodel.request.RequestAriticleViewModel$getShareData$3:
     void invoke(me.hgj.jetpackmvvm.network.AppException) -> a
 me.hgj.jetpackmvvm.demo.viewmodel.request.RequestCollectViewModel -> me.hgj.jetpackmvvm.demo.viewmodel.request.RequestCollectViewModel:
-    androidx.lifecycle.MutableLiveData collectUiState -> c
+    androidx.lifecycle.EventLiveData collectUiState -> c
     int pageNo -> b
-    androidx.lifecycle.MutableLiveData collectUrlUiState -> d
-    androidx.lifecycle.MutableLiveData ariticleDataState -> e
-    androidx.lifecycle.MutableLiveData urlDataState -> f
+    androidx.lifecycle.EventLiveData collectUrlUiState -> d
+    androidx.lifecycle.EventLiveData ariticleDataState -> e
+    androidx.lifecycle.EventLiveData urlDataState -> f
     int access$getPageNo$p(me.hgj.jetpackmvvm.demo.viewmodel.request.RequestCollectViewModel) -> b
     void access$setPageNo$p(me.hgj.jetpackmvvm.demo.viewmodel.request.RequestCollectViewModel,int) -> c
     void collect(int) -> d
     void collectUrl(java.lang.String,java.lang.String) -> e
-    androidx.lifecycle.MutableLiveData getAriticleDataState() -> f
+    androidx.lifecycle.EventLiveData getAriticleDataState() -> f
     void getCollectAriticleData(boolean) -> g
-    androidx.lifecycle.MutableLiveData getCollectUiState() -> h
+    androidx.lifecycle.EventLiveData getCollectUiState() -> h
     void getCollectUrlData() -> i
-    androidx.lifecycle.MutableLiveData getCollectUrlUiState() -> j
-    androidx.lifecycle.MutableLiveData getUrlDataState() -> k
+    androidx.lifecycle.EventLiveData getCollectUrlUiState() -> j
+    androidx.lifecycle.EventLiveData getUrlDataState() -> k
     void uncollect(int) -> l
     void uncollectUrl(int) -> m
 me.hgj.jetpackmvvm.demo.viewmodel.request.RequestCollectViewModel$collect$2 -> me.hgj.jetpackmvvm.demo.viewmodel.request.RequestCollectViewModel$collect$2:
@@ -12883,13 +12883,13 @@ me.hgj.jetpackmvvm.demo.viewmodel.request.RequestCollectViewModel$uncollectUrl$2
 me.hgj.jetpackmvvm.demo.viewmodel.request.RequestCollectViewModel$uncollectUrl$3 -> me.hgj.jetpackmvvm.demo.viewmodel.request.RequestCollectViewModel$uncollectUrl$3:
     void invoke(me.hgj.jetpackmvvm.network.AppException) -> a
 me.hgj.jetpackmvvm.demo.viewmodel.request.RequestHomeViewModel -> me.hgj.jetpackmvvm.demo.viewmodel.request.RequestHomeViewModel:
-    androidx.lifecycle.MutableLiveData homeDataState -> c
+    androidx.lifecycle.EventLiveData homeDataState -> c
     int pageNo -> b
-    androidx.lifecycle.MutableLiveData bannerData -> d
-    androidx.lifecycle.MutableLiveData getBannerData() -> b
+    androidx.lifecycle.EventLiveData bannerData -> d
+    androidx.lifecycle.EventLiveData getBannerData() -> b
     void getBannerData() -> c
     void getHomeData(boolean) -> d
-    androidx.lifecycle.MutableLiveData getHomeDataState() -> e
+    androidx.lifecycle.EventLiveData getHomeDataState() -> e
     int getPageNo() -> f
     void setPageNo(int) -> g
 me.hgj.jetpackmvvm.demo.viewmodel.request.RequestHomeViewModel$getHomeData$2 -> me.hgj.jetpackmvvm.demo.viewmodel.request.RequestHomeViewModel$getHomeData$2:
@@ -12897,15 +12897,15 @@ me.hgj.jetpackmvvm.demo.viewmodel.request.RequestHomeViewModel$getHomeData$2 -> 
 me.hgj.jetpackmvvm.demo.viewmodel.request.RequestHomeViewModel$getHomeData$3 -> me.hgj.jetpackmvvm.demo.viewmodel.request.RequestHomeViewModel$getHomeData$3:
     void invoke(me.hgj.jetpackmvvm.network.AppException) -> a
 me.hgj.jetpackmvvm.demo.viewmodel.request.RequestIntegralViewModel -> me.hgj.jetpackmvvm.demo.viewmodel.request.RequestIntegralViewModel:
-    androidx.lifecycle.MutableLiveData integralDataState -> c
+    androidx.lifecycle.EventLiveData integralDataState -> c
     int pageNo -> b
-    androidx.lifecycle.MutableLiveData integralHistoryDataState -> d
+    androidx.lifecycle.EventLiveData integralHistoryDataState -> d
     int access$getPageNo$p(me.hgj.jetpackmvvm.demo.viewmodel.request.RequestIntegralViewModel) -> b
     void access$setPageNo$p(me.hgj.jetpackmvvm.demo.viewmodel.request.RequestIntegralViewModel,int) -> c
     void getIntegralData(boolean) -> d
-    androidx.lifecycle.MutableLiveData getIntegralDataState() -> e
+    androidx.lifecycle.EventLiveData getIntegralDataState() -> e
     void getIntegralHistoryData(boolean) -> f
-    androidx.lifecycle.MutableLiveData getIntegralHistoryDataState() -> g
+    androidx.lifecycle.EventLiveData getIntegralHistoryDataState() -> g
 me.hgj.jetpackmvvm.demo.viewmodel.request.RequestIntegralViewModel$getIntegralData$2 -> me.hgj.jetpackmvvm.demo.viewmodel.request.RequestIntegralViewModel$getIntegralData$2:
     void invoke(me.hgj.jetpackmvvm.demo.data.model.bean.ApiPagerResponse) -> a
 me.hgj.jetpackmvvm.demo.viewmodel.request.RequestIntegralViewModel$getIntegralData$3 -> me.hgj.jetpackmvvm.demo.viewmodel.request.RequestIntegralViewModel$getIntegralData$3:
@@ -12915,66 +12915,66 @@ me.hgj.jetpackmvvm.demo.viewmodel.request.RequestIntegralViewModel$getIntegralHi
 me.hgj.jetpackmvvm.demo.viewmodel.request.RequestIntegralViewModel$getIntegralHistoryData$3 -> me.hgj.jetpackmvvm.demo.viewmodel.request.RequestIntegralViewModel$getIntegralHistoryData$3:
     void invoke(me.hgj.jetpackmvvm.network.AppException) -> a
 me.hgj.jetpackmvvm.demo.viewmodel.request.RequestLoginRegisterViewModel -> me.hgj.jetpackmvvm.demo.viewmodel.request.RequestLoginRegisterViewModel:
-    androidx.lifecycle.MutableLiveData loginResult -> b
-    androidx.lifecycle.MutableLiveData getLoginResult() -> b
+    androidx.lifecycle.EventLiveData loginResult -> b
+    androidx.lifecycle.EventLiveData getLoginResult() -> b
     void loginReq(java.lang.String,java.lang.String) -> c
     void registerAndlogin(java.lang.String,java.lang.String) -> d
 me.hgj.jetpackmvvm.demo.viewmodel.request.RequestLookInfoViewModel -> me.hgj.jetpackmvvm.demo.viewmodel.request.RequestLookInfoViewModel:
-    androidx.lifecycle.MutableLiveData shareListDataUistate -> c
+    androidx.lifecycle.EventLiveData shareListDataUistate -> c
     int pageNo -> b
-    androidx.lifecycle.MutableLiveData shareResponse -> d
+    androidx.lifecycle.EventLiveData shareResponse -> d
     void getLookinfo(int,boolean) -> b
     int getPageNo() -> c
-    androidx.lifecycle.MutableLiveData getShareListDataUistate() -> d
-    androidx.lifecycle.MutableLiveData getShareResponse() -> e
+    androidx.lifecycle.EventLiveData getShareListDataUistate() -> d
+    androidx.lifecycle.EventLiveData getShareResponse() -> e
     void setPageNo(int) -> f
 me.hgj.jetpackmvvm.demo.viewmodel.request.RequestLookInfoViewModel$getLookinfo$2 -> me.hgj.jetpackmvvm.demo.viewmodel.request.RequestLookInfoViewModel$getLookinfo$2:
     void invoke(me.hgj.jetpackmvvm.demo.data.model.bean.ShareResponse) -> a
 me.hgj.jetpackmvvm.demo.viewmodel.request.RequestLookInfoViewModel$getLookinfo$3 -> me.hgj.jetpackmvvm.demo.viewmodel.request.RequestLookInfoViewModel$getLookinfo$3:
     void invoke(me.hgj.jetpackmvvm.network.AppException) -> a
 me.hgj.jetpackmvvm.demo.viewmodel.request.RequestMeViewModel -> me.hgj.jetpackmvvm.demo.viewmodel.request.RequestMeViewModel:
-    androidx.lifecycle.MutableLiveData meData -> b
+    androidx.lifecycle.EventLiveData meData -> b
     void getIntegral() -> b
-    androidx.lifecycle.MutableLiveData getMeData() -> c
+    androidx.lifecycle.EventLiveData getMeData() -> c
 me.hgj.jetpackmvvm.demo.viewmodel.request.RequestProjectViewModel -> me.hgj.jetpackmvvm.demo.viewmodel.request.RequestProjectViewModel:
-    androidx.lifecycle.MutableLiveData titleData -> c
+    androidx.lifecycle.EventLiveData titleData -> c
     int pageNo -> b
-    androidx.lifecycle.MutableLiveData projectDataState -> d
+    androidx.lifecycle.EventLiveData projectDataState -> d
     int getPageNo() -> b
     void getProjectData(boolean,int,boolean) -> c
-    androidx.lifecycle.MutableLiveData getProjectDataState() -> d
+    androidx.lifecycle.EventLiveData getProjectDataState() -> d
     void getProjectTitleData() -> e
-    androidx.lifecycle.MutableLiveData getTitleData() -> f
+    androidx.lifecycle.EventLiveData getTitleData() -> f
     void setPageNo(int) -> g
 me.hgj.jetpackmvvm.demo.viewmodel.request.RequestProjectViewModel$getProjectData$2 -> me.hgj.jetpackmvvm.demo.viewmodel.request.RequestProjectViewModel$getProjectData$2:
     void invoke(me.hgj.jetpackmvvm.demo.data.model.bean.ApiPagerResponse) -> a
 me.hgj.jetpackmvvm.demo.viewmodel.request.RequestProjectViewModel$getProjectData$3 -> me.hgj.jetpackmvvm.demo.viewmodel.request.RequestProjectViewModel$getProjectData$3:
     void invoke(me.hgj.jetpackmvvm.network.AppException) -> a
 me.hgj.jetpackmvvm.demo.viewmodel.request.RequestPublicNumberViewModel -> me.hgj.jetpackmvvm.demo.viewmodel.request.RequestPublicNumberViewModel:
-    androidx.lifecycle.MutableLiveData titleData -> c
+    androidx.lifecycle.EventLiveData titleData -> c
     int pageNo -> b
-    androidx.lifecycle.MutableLiveData publicDataState -> d
+    androidx.lifecycle.EventLiveData publicDataState -> d
     int getPageNo() -> b
     void getPublicData(boolean,int) -> c
-    androidx.lifecycle.MutableLiveData getPublicDataState() -> d
+    androidx.lifecycle.EventLiveData getPublicDataState() -> d
     void getPublicTitleData() -> e
-    androidx.lifecycle.MutableLiveData getTitleData() -> f
+    androidx.lifecycle.EventLiveData getTitleData() -> f
     void setPageNo(int) -> g
 me.hgj.jetpackmvvm.demo.viewmodel.request.RequestPublicNumberViewModel$getPublicData$2 -> me.hgj.jetpackmvvm.demo.viewmodel.request.RequestPublicNumberViewModel$getPublicData$2:
     void invoke(me.hgj.jetpackmvvm.demo.data.model.bean.ApiPagerResponse) -> a
 me.hgj.jetpackmvvm.demo.viewmodel.request.RequestPublicNumberViewModel$getPublicData$3 -> me.hgj.jetpackmvvm.demo.viewmodel.request.RequestPublicNumberViewModel$getPublicData$3:
     void invoke(me.hgj.jetpackmvvm.network.AppException) -> a
 me.hgj.jetpackmvvm.demo.viewmodel.request.RequestSearchViewModel -> me.hgj.jetpackmvvm.demo.viewmodel.request.RequestSearchViewModel:
-    androidx.lifecycle.MutableLiveData hotData -> c
+    androidx.lifecycle.EventLiveData hotData -> c
     int pageNo -> b
-    androidx.lifecycle.MutableLiveData seachResultData -> d
-    androidx.lifecycle.MutableLiveData historyData -> e
-    androidx.lifecycle.MutableLiveData getHistoryData() -> b
+    androidx.lifecycle.EventLiveData seachResultData -> d
+    androidx.lifecycle.EventLiveData historyData -> e
+    androidx.lifecycle.EventLiveData getHistoryData() -> b
     void getHistoryData() -> c
-    androidx.lifecycle.MutableLiveData getHotData() -> d
+    androidx.lifecycle.EventLiveData getHotData() -> d
     void getHotData() -> e
     int getPageNo() -> f
-    androidx.lifecycle.MutableLiveData getSeachResultData() -> g
+    androidx.lifecycle.EventLiveData getSeachResultData() -> g
     void getSearchResultData(java.lang.String,boolean) -> h
     void setPageNo(int) -> i
 me.hgj.jetpackmvvm.demo.viewmodel.request.RequestSearchViewModel$getHistoryData$1 -> me.hgj.jetpackmvvm.demo.viewmodel.request.RequestSearchViewModel$getHistoryData$1:
@@ -12985,20 +12985,20 @@ me.hgj.jetpackmvvm.demo.viewmodel.request.RequestSearchViewModel$getHistoryData$
 me.hgj.jetpackmvvm.demo.viewmodel.request.RequestSearchViewModel$getHistoryData$3 -> me.hgj.jetpackmvvm.demo.viewmodel.request.RequestSearchViewModel$getHistoryData$3:
     me.hgj.jetpackmvvm.demo.viewmodel.request.RequestSearchViewModel$getHistoryData$3 INSTANCE -> a
 me.hgj.jetpackmvvm.demo.viewmodel.request.RequestTodoViewModel -> me.hgj.jetpackmvvm.demo.viewmodel.request.RequestTodoViewModel:
-    androidx.lifecycle.MutableLiveData todoDataState -> c
+    androidx.lifecycle.EventLiveData todoDataState -> c
     int pageNo -> b
-    androidx.lifecycle.MutableLiveData delDataState -> d
-    androidx.lifecycle.MutableLiveData doneDataState -> e
-    androidx.lifecycle.MutableLiveData updateDataState -> f
+    androidx.lifecycle.EventLiveData delDataState -> d
+    androidx.lifecycle.EventLiveData doneDataState -> e
+    androidx.lifecycle.EventLiveData updateDataState -> f
     void addTodo(java.lang.String,java.lang.String,java.lang.String,int) -> b
     void delTodo(int,int) -> c
     void doneTodo(int,int) -> d
-    androidx.lifecycle.MutableLiveData getDelDataState() -> e
-    androidx.lifecycle.MutableLiveData getDoneDataState() -> f
+    androidx.lifecycle.EventLiveData getDelDataState() -> e
+    androidx.lifecycle.EventLiveData getDoneDataState() -> f
     int getPageNo() -> g
     void getTodoData(boolean) -> h
-    androidx.lifecycle.MutableLiveData getTodoDataState() -> i
-    androidx.lifecycle.MutableLiveData getUpdateDataState() -> j
+    androidx.lifecycle.EventLiveData getTodoDataState() -> i
+    androidx.lifecycle.EventLiveData getUpdateDataState() -> j
     void setPageNo(int) -> k
     void updateTodo(int,java.lang.String,java.lang.String,java.lang.String,int) -> l
 me.hgj.jetpackmvvm.demo.viewmodel.request.RequestTodoViewModel$addTodo$2 -> me.hgj.jetpackmvvm.demo.viewmodel.request.RequestTodoViewModel$addTodo$2:
@@ -13022,24 +13022,24 @@ me.hgj.jetpackmvvm.demo.viewmodel.request.RequestTodoViewModel$updateTodo$2 -> m
 me.hgj.jetpackmvvm.demo.viewmodel.request.RequestTodoViewModel$updateTodo$3 -> me.hgj.jetpackmvvm.demo.viewmodel.request.RequestTodoViewModel$updateTodo$3:
     void invoke(me.hgj.jetpackmvvm.network.AppException) -> a
 me.hgj.jetpackmvvm.demo.viewmodel.request.RequestTreeViewModel -> me.hgj.jetpackmvvm.demo.viewmodel.request.RequestTreeViewModel:
-    androidx.lifecycle.MutableLiveData plazaDataState -> c
+    androidx.lifecycle.EventLiveData plazaDataState -> c
     int pageNo -> b
-    androidx.lifecycle.MutableLiveData askDataState -> d
-    androidx.lifecycle.MutableLiveData systemChildDataState -> e
-    androidx.lifecycle.MutableLiveData systemDataState -> f
-    androidx.lifecycle.MutableLiveData navigationDataState -> g
+    androidx.lifecycle.EventLiveData askDataState -> d
+    androidx.lifecycle.EventLiveData systemChildDataState -> e
+    androidx.lifecycle.EventLiveData systemDataState -> f
+    androidx.lifecycle.EventLiveData navigationDataState -> g
     int access$getPageNo$p(me.hgj.jetpackmvvm.demo.viewmodel.request.RequestTreeViewModel) -> b
     void access$setPageNo$p(me.hgj.jetpackmvvm.demo.viewmodel.request.RequestTreeViewModel,int) -> c
     void getAskData(boolean) -> d
-    androidx.lifecycle.MutableLiveData getAskDataState() -> e
+    androidx.lifecycle.EventLiveData getAskDataState() -> e
     void getNavigationData() -> f
-    androidx.lifecycle.MutableLiveData getNavigationDataState() -> g
+    androidx.lifecycle.EventLiveData getNavigationDataState() -> g
     void getPlazaData(boolean) -> h
-    androidx.lifecycle.MutableLiveData getPlazaDataState() -> i
+    androidx.lifecycle.EventLiveData getPlazaDataState() -> i
     void getSystemChildData(boolean,int) -> j
-    androidx.lifecycle.MutableLiveData getSystemChildDataState() -> k
+    androidx.lifecycle.EventLiveData getSystemChildDataState() -> k
     void getSystemData() -> l
-    androidx.lifecycle.MutableLiveData getSystemDataState() -> m
+    androidx.lifecycle.EventLiveData getSystemDataState() -> m
 me.hgj.jetpackmvvm.demo.viewmodel.request.RequestTreeViewModel$getAskData$2 -> me.hgj.jetpackmvvm.demo.viewmodel.request.RequestTreeViewModel$getAskData$2:
     void invoke(me.hgj.jetpackmvvm.demo.data.model.bean.ApiPagerResponse) -> a
 me.hgj.jetpackmvvm.demo.viewmodel.request.RequestTreeViewModel$getAskData$3 -> me.hgj.jetpackmvvm.demo.viewmodel.request.RequestTreeViewModel$getAskData$3:
@@ -13068,23 +13068,23 @@ me.hgj.jetpackmvvm.demo.viewmodel.state.AriticleViewModel -> me.hgj.jetpackmvvm.
     me.hgj.jetpackmvvm.callback.databind.StringObservableField getShareTitle() -> c
     me.hgj.jetpackmvvm.callback.databind.StringObservableField getShareUrl() -> d
 me.hgj.jetpackmvvm.demo.viewmodel.state.DownloadLibraryViewModel -> me.hgj.jetpackmvvm.demo.viewmodel.state.DownloadLibraryViewModel:
-    androidx.lifecycle.MutableLiveData downloadData -> b
+    androidx.lifecycle.EventLiveData downloadData -> b
     kotlin.Lazy fileDownloader$delegate -> d
     com.liulishuo.filedownloader.BaseDownloadTask baseDownloadTask -> c
     void downloadApkByLibrary(java.lang.String,java.lang.String,java.lang.Object) -> b
     void downloadCancel() -> c
     void downloadPause() -> d
-    androidx.lifecycle.MutableLiveData getDownloadData() -> e
+    androidx.lifecycle.EventLiveData getDownloadData() -> e
     com.liulishuo.filedownloader.FileDownloader getFileDownloader() -> f
 me.hgj.jetpackmvvm.demo.viewmodel.state.DownloadLibraryViewModel$fileDownloader$2 -> me.hgj.jetpackmvvm.demo.viewmodel.state.DownloadLibraryViewModel$fileDownloader$2:
     me.hgj.jetpackmvvm.demo.viewmodel.state.DownloadLibraryViewModel$fileDownloader$2 INSTANCE -> a
     com.liulishuo.filedownloader.FileDownloader invoke() -> a
 me.hgj.jetpackmvvm.demo.viewmodel.state.DownloadViewModel -> me.hgj.jetpackmvvm.demo.viewmodel.state.DownloadViewModel:
-    androidx.lifecycle.MutableLiveData downloadData -> b
+    androidx.lifecycle.EventLiveData downloadData -> b
     void downloadApk(java.lang.String,java.lang.String,java.lang.String) -> b
     void downloadCancel(java.lang.String) -> c
     void downloadPause(java.lang.String) -> d
-    androidx.lifecycle.MutableLiveData getDownloadData() -> e
+    androidx.lifecycle.EventLiveData getDownloadData() -> e
 me.hgj.jetpackmvvm.demo.viewmodel.state.IntegralViewModel -> me.hgj.jetpackmvvm.demo.viewmodel.state.IntegralViewModel:
     androidx.databinding.ObservableField rank -> b
     androidx.databinding.ObservableField getRank() -> b
@@ -13153,9 +13153,9 @@ me.hgj.jetpackmvvm.ext.BaseViewModelExtKt -> me.hgj.jetpackmvvm.ext.BaseViewMode
     void launch(me.hgj.jetpackmvvm.base.viewmodel.BaseViewModel,kotlin.jvm.functions.Function0,kotlin.jvm.functions.Function1,kotlin.jvm.functions.Function1) -> b
     void parseState(me.hgj.jetpackmvvm.base.fragment.BaseVmFragment,me.hgj.jetpackmvvm.state.ResultState,kotlin.jvm.functions.Function1,kotlin.jvm.functions.Function1,kotlin.jvm.functions.Function0) -> c
     void parseState$default(me.hgj.jetpackmvvm.base.fragment.BaseVmFragment,me.hgj.jetpackmvvm.state.ResultState,kotlin.jvm.functions.Function1,kotlin.jvm.functions.Function1,kotlin.jvm.functions.Function0,int,java.lang.Object) -> d
-    kotlinx.coroutines.Job request(me.hgj.jetpackmvvm.base.viewmodel.BaseViewModel,kotlin.jvm.functions.Function1,androidx.lifecycle.MutableLiveData,boolean,java.lang.String) -> e
+    kotlinx.coroutines.Job request(me.hgj.jetpackmvvm.base.viewmodel.BaseViewModel,kotlin.jvm.functions.Function1,androidx.lifecycle.EventLiveData,boolean,java.lang.String) -> e
     kotlinx.coroutines.Job request(me.hgj.jetpackmvvm.base.viewmodel.BaseViewModel,kotlin.jvm.functions.Function1,kotlin.jvm.functions.Function1,kotlin.jvm.functions.Function1,boolean,java.lang.String) -> f
-    kotlinx.coroutines.Job request$default(me.hgj.jetpackmvvm.base.viewmodel.BaseViewModel,kotlin.jvm.functions.Function1,androidx.lifecycle.MutableLiveData,boolean,java.lang.String,int,java.lang.Object) -> g
+    kotlinx.coroutines.Job request$default(me.hgj.jetpackmvvm.base.viewmodel.BaseViewModel,kotlin.jvm.functions.Function1,androidx.lifecycle.EventLiveData,boolean,java.lang.String,int,java.lang.Object) -> g
     kotlinx.coroutines.Job request$default(me.hgj.jetpackmvvm.base.viewmodel.BaseViewModel,kotlin.jvm.functions.Function1,kotlin.jvm.functions.Function1,kotlin.jvm.functions.Function1,boolean,java.lang.String,int,java.lang.Object) -> h
 me.hgj.jetpackmvvm.ext.BaseViewModelExtKt$request$2 -> me.hgj.jetpackmvvm.ext.BaseViewModelExtKt$request$2:
     me.hgj.jetpackmvvm.ext.BaseViewModelExtKt$request$2 INSTANCE -> a
@@ -13228,9 +13228,9 @@ me.hgj.jetpackmvvm.ext.download.DownloadResultState$Success -> me.hgj.jetpackmvv
     java.lang.String getFilePath() -> a
     long getTotalBytes() -> b
 me.hgj.jetpackmvvm.ext.download.FileDownloaderExtKt -> me.hgj.jetpackmvvm.ext.download.e:
-    me.hgj.jetpackmvvm.ext.download.OnDownLoadListener downLoadExt(androidx.lifecycle.MutableLiveData) -> a
+    me.hgj.jetpackmvvm.ext.download.OnDownLoadListener downLoadExt(androidx.lifecycle.EventLiveData) -> a
 me.hgj.jetpackmvvm.ext.download.FileDownloaderExtKt$downLoadExt$1 -> me.hgj.jetpackmvvm.ext.download.e$a:
-    androidx.lifecycle.MutableLiveData $downloadResultState -> a
+    androidx.lifecycle.EventLiveData $downloadResultState -> a
     void onDownLoadPause(java.lang.String) -> a
     void onDownLoadSuccess(java.lang.String,java.lang.String,long) -> b
     void onUpdate(java.lang.String,int,long,long,boolean) -> c
@@ -13459,8 +13459,8 @@ me.hgj.jetpackmvvm.state.ResultState$Success -> me.hgj.jetpackmvvm.a.a$d:
     java.lang.Object data -> b
     java.lang.Object getData() -> a
 me.hgj.jetpackmvvm.state.ResultStateKt -> me.hgj.jetpackmvvm.a.b:
-    void paresException(androidx.lifecycle.MutableLiveData,java.lang.Throwable) -> a
-    void paresResult(androidx.lifecycle.MutableLiveData,me.hgj.jetpackmvvm.network.BaseResponse) -> b
+    void paresException(androidx.lifecycle.EventLiveData,java.lang.Throwable) -> a
+    void paresResult(androidx.lifecycle.EventLiveData,me.hgj.jetpackmvvm.network.BaseResponse) -> b
 me.hgj.jetpackmvvm.util.CharacterHandler -> me.hgj.jetpackmvvm.util.a:
     me.hgj.jetpackmvvm.util.CharacterHandler$Companion Companion -> a
 me.hgj.jetpackmvvm.util.CharacterHandler$Companion -> me.hgj.jetpackmvvm.util.a$b:

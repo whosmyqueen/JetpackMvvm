@@ -2,8 +2,8 @@ package me.hgj.jetpackmvvm.callback.livedata
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import me.hgj.jetpackmvvm.callback.livedata.event.EventLiveData
 
 /**
  * 作者　: hegaojian
@@ -11,7 +11,7 @@ import androidx.lifecycle.Observer
  * 仅分发 owner observe 后 才新拿到的数据
  * 可避免共享作用域 VM 下 liveData 被 observe 时旧数据倒灌的情况
  */
-class UnPeekLiveData<T> : MutableLiveData<T>() {
+class UnPeekLiveData<T> : EventLiveData<T>() {
     override fun observe(
         owner: LifecycleOwner,
         observer: Observer<in T>

@@ -1,7 +1,7 @@
 package me.hgj.jetpackmvvm.demo.viewmodel.request
 
-import androidx.lifecycle.MutableLiveData
 import me.hgj.jetpackmvvm.base.viewmodel.BaseViewModel
+import me.hgj.jetpackmvvm.callback.livedata.event.EventLiveData
 import me.hgj.jetpackmvvm.demo.app.network.apiService
 import me.hgj.jetpackmvvm.demo.app.network.stateCallback.ListDataUiState
 import me.hgj.jetpackmvvm.demo.data.model.bean.IntegralHistoryResponse
@@ -18,10 +18,10 @@ class RequestIntegralViewModel : BaseViewModel() {
     private var pageNo = 1
 
     //积分排行数据
-    var integralDataState = MutableLiveData<ListDataUiState<IntegralResponse>>()
+    var integralDataState = EventLiveData<ListDataUiState<IntegralResponse>>()
 
     //获取积分历史数据
-    var integralHistoryDataState = MutableLiveData<ListDataUiState<IntegralHistoryResponse>>()
+    var integralHistoryDataState = EventLiveData<ListDataUiState<IntegralHistoryResponse>>()
 
     fun getIntegralData(isRefresh: Boolean) {
         if (isRefresh) {

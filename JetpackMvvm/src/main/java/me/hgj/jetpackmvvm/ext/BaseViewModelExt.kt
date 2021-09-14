@@ -1,11 +1,11 @@
 package me.hgj.jetpackmvvm.ext
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.*
 import me.hgj.jetpackmvvm.base.activity.BaseVmActivity
 import me.hgj.jetpackmvvm.base.fragment.BaseVmFragment
 import me.hgj.jetpackmvvm.base.viewmodel.BaseViewModel
+import me.hgj.jetpackmvvm.callback.livedata.event.EventLiveData
 import me.hgj.jetpackmvvm.ext.util.loge
 import me.hgj.jetpackmvvm.network.AppException
 import me.hgj.jetpackmvvm.network.BaseResponse
@@ -93,7 +93,7 @@ fun <T> BaseVmFragment<*>.parseState(
  */
 fun <T> BaseViewModel.request(
     block: suspend () -> BaseResponse<T>,
-    resultState: MutableLiveData<ResultState<T>>,
+    resultState: EventLiveData<ResultState<T>>,
     isShowDialog: Boolean = false,
     loadingMessage: String = "请求网络中...",
 ): Job {
@@ -120,7 +120,7 @@ fun <T> BaseViewModel.request(
  */
 fun <T> BaseViewModel.requestNoCheck(
     block: suspend () -> T,
-    resultState: MutableLiveData<ResultState<T>>,
+    resultState: EventLiveData<ResultState<T>>,
     isShowDialog: Boolean = false,
     loadingMessage: String = "请求网络中..."
 ): Job {
