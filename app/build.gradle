@@ -102,8 +102,8 @@ dependencies {
     //微信开源项目，替代SP
     implementation 'com.tencent:mmkv:1.0.22'
     //项目核心框架
-//    implementation project(path: ':JetpackMvvm')
-    implementation 'com.github.hegaojian:JetpackMvvm:1.2.5'
+    implementation project(path: ':JetpackMvvm')
+//    implementation 'com.github.hegaojian:JetpackMvvm:1.2.5'
     //轮播图
     implementation 'com.github.zhpanvip:BannerViewPager:3.1.5'
     //BaseAdapter

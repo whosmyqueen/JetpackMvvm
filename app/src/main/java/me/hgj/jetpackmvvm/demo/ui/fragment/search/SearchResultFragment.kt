@@ -161,7 +161,7 @@ class SearchResultFragment : BaseFragment<SearchViewModel, FragmentListBinding>(
         })
         appViewModel.run {
             //监听账户信息是否改变 有值时(登录)将相关的数据设置为已收藏，为空时(退出登录)，将已收藏的数据变为未收藏
-            userInfo.observeInFragment(this@SearchResultFragment, Observer {
+            userInfo.observe(this@SearchResultFragment, Observer {
                 if (it != null) {
                     it.collectIds.forEach { id ->
                         for (item in articleAdapter.data) {
@@ -180,7 +180,7 @@ class SearchResultFragment : BaseFragment<SearchViewModel, FragmentListBinding>(
             })
 
             //监听全局的收藏信息 收藏的Id跟本列表的数据id匹配则需要更新
-            eventViewModel.collectEvent.observeInFragment(this@SearchResultFragment, Observer {
+            eventViewModel.collectEvent.observe(this@SearchResultFragment, Observer {
                 for (index in articleAdapter.data.indices) {
                     if (articleAdapter.data[index].id == it.id) {
                         articleAdapter.data[index].collect = it.collect

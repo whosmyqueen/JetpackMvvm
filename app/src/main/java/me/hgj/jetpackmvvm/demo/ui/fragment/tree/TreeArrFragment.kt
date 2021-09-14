@@ -72,7 +72,7 @@ class TreeArrFragment : BaseFragment<TreeViewModel, FragmentViewpagerBinding>() 
     }
 
     override fun createObserver() {
-        appViewModel.appColor.observeInFragment(this, Observer {
+        appViewModel.appColor.observe(this, Observer {
             setUiTheme(it, viewpager_linear)
         })
     }

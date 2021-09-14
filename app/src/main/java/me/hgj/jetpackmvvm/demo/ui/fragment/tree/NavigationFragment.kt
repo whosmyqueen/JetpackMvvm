@@ -81,11 +81,11 @@ class NavigationFragment : BaseFragment<TreeViewModel, IncludeListBinding>() {
         })
         appViewModel.run {
             //监听全局的主题颜色改变
-            appColor.observeInFragment(this@NavigationFragment, Observer {
+            appColor.observe(this@NavigationFragment, Observer {
                 setUiTheme(it, floatbtn, swipeRefresh, loadsir)
             })
             //监听全局的列表动画改编
-            appAnimation.observeInFragment(this@NavigationFragment, Observer {
+            appAnimation.observe(this@NavigationFragment, Observer {
                 navigationAdapter.setAdapterAnimation(it)
             })
         }

@@ -134,7 +134,7 @@ class PublicChildFragment : BaseFragment<PublicNumberViewModel, IncludeListBindi
         })
         appViewModel.run {
             //监听账户信息是否改变 有值时(登录)将相关的数据设置为已收藏，为空时(退出登录)，将已收藏的数据变为未收藏
-            userInfo.observeInFragment(this@PublicChildFragment, Observer {
+            userInfo.observe(this@PublicChildFragment, Observer {
                 if (it != null) {
                     it.collectIds.forEach { id ->
                         for (item in articleAdapter.data) {
@@ -152,15 +152,15 @@ class PublicChildFragment : BaseFragment<PublicNumberViewModel, IncludeListBindi
                 articleAdapter.notifyDataSetChanged()
             })
             //监听全局的主题颜色改变
-            appColor.observeInFragment(this@PublicChildFragment, Observer {
+            appColor.observe(this@PublicChildFragment, Observer {
                 setUiTheme(it, floatbtn, swipeRefresh, loadsir, footView)
             })
             //监听全局的列表动画改编
-            appAnimation.observeInFragment(this@PublicChildFragment, Observer {
+            appAnimation.observe(this@PublicChildFragment, Observer {
                 articleAdapter.setAdapterAnimation(it)
             })
             //监听全局的收藏信息 收藏的Id跟本列表的数据id匹配则需要更新
-            eventViewModel.collectEvent.observeInFragment(this@PublicChildFragment, Observer {
+            eventViewModel.collectEvent.observe(this@PublicChildFragment, Observer {
                 for (index in articleAdapter.data.indices) {
                     if (articleAdapter.data[index].id == it.id) {
                         articleAdapter.data[index].collect = it.collect

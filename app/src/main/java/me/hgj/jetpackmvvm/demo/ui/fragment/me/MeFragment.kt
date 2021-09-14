@@ -67,10 +67,10 @@ class MeFragment : BaseFragment<MeViewModel, FragmentMeBinding>() {
         })
 
         appViewModel.run {
-            appColor.observeInFragment(this@MeFragment, Observer {
+            appColor.observe(this@MeFragment, {
                 setUiTheme(it, me_linear, me_swipe, me_integral)
             })
-            userInfo.observeInFragment(this@MeFragment, Observer {
+            userInfo.observe(this@MeFragment, {
                 it.notNull({
                     me_swipe.isRefreshing = true
                     mViewModel.name.set(if (it.nickname.isEmpty()) it.username else it.nickname)

@@ -3,13 +3,13 @@ package me.hgj.jetpackmvvm.base.fragment
 import android.content.Context
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import me.hgj.jetpackmvvm.base.viewmodel.BaseViewModel
 import me.hgj.jetpackmvvm.ext.getVmClazz
@@ -24,7 +24,7 @@ import me.hgj.jetpackmvvm.network.manager.NetworkStateManager
 
 abstract class BaseVmFragment<VM : BaseViewModel> : Fragment() {
 
-    private val handler = Handler()
+    private val handler = Handler(Looper.getMainLooper())
 
     //是否第一次加载
     private var isFirst: Boolean = true
@@ -58,7 +58,7 @@ abstract class BaseVmFragment<VM : BaseViewModel> : Fragment() {
         mViewModel = createViewModel()
         initView(savedInstanceState)
         createObserver()
-        registorDefUIChange()
+        registerDefUIChange()
         initData()
     }
 
@@ -103,9 +103,9 @@ abstract class BaseVmFragment<VM : BaseViewModel> : Fragment() {
             handler.postDelayed( {
                 lazyLoadData()
                 //在Fragment中，只有懒加载过了才能开启网络变化监听
-                NetworkStateManager.instance.mNetworkStateCallback.observeInFragment(
+                NetworkStateManager.instance.mNetworkStateCallback.observe(
                     this,
-                    Observer {
+                    {
                         //不是首次订阅时调用方法，防止数据第一次监听错误
                         if (!isFirst) {
                             onNetworkStateChanged(it)
@@ -128,11 +128,11 @@ abstract class BaseVmFragment<VM : BaseViewModel> : Fragment() {
     /**
      * 注册 UI 事件
      */
-    private fun registorDefUIChange() {
-        mViewModel.loadingChange.showDialog.observeInFragment(this, Observer {
+    private fun registerDefUIChange() {
+        mViewModel.loadingChange.showDialog.observe(this, {
             showLoading(it)
         })
-        mViewModel.loadingChange.dismissDialog.observeInFragment(this, Observer {
+        mViewModel.loadingChange.dismissDialog.observe(this, {
             dismissLoading()
         })
     }
@@ -144,11 +144,11 @@ abstract class BaseVmFragment<VM : BaseViewModel> : Fragment() {
     protected fun addLoadingObserve(vararg viewModels: BaseViewModel) {
         viewModels.forEach { viewModel ->
             //显示弹窗
-            viewModel.loadingChange.showDialog.observeInFragment(this, Observer {
+            viewModel.loadingChange.showDialog.observe(this, {
                 showLoading(it)
             })
             //关闭弹窗
-            viewModel.loadingChange.dismissDialog.observeInFragment(this, Observer {
+            viewModel.loadingChange.dismissDialog.observe(this, {
                 dismissLoading()
             })
         }

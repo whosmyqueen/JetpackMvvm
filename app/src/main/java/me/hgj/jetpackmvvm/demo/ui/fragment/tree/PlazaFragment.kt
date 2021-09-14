@@ -131,7 +131,7 @@ class PlazaFragment : BaseFragment<TreeViewModel, IncludeListBinding>() {
         })
         appViewModel.run {
             //监听账户信息是否改变 有值时(登录)将相关的数据设置为已收藏，为空时(退出登录)，将已收藏的数据变为未收藏
-            userInfo.observeInFragment(this@PlazaFragment, Observer {
+            userInfo.observe(this@PlazaFragment, Observer {
                 if (it != null) {
                     it.collectIds.forEach { id ->
                         for (item in articleAdapter.data) {
@@ -149,16 +149,16 @@ class PlazaFragment : BaseFragment<TreeViewModel, IncludeListBinding>() {
                 articleAdapter.notifyDataSetChanged()
             })
             //监听全局的主题颜色改变
-            appColor.observeInFragment(this@PlazaFragment, Observer {
+            appColor.observe(this@PlazaFragment, Observer {
                 setUiTheme(it, floatbtn, swipeRefresh, loadsir)
             })
             //监听全局的列表动画改编
-            appAnimation.observeInFragment(this@PlazaFragment, Observer {
+            appAnimation.observe(this@PlazaFragment, Observer {
                 articleAdapter.setAdapterAnimation(it)
             })
         }
         //监听全局的收藏信息 收藏的Id跟本列表的数据id匹配则需要更新
-        eventViewModel.collectEvent.observeInFragment(this, Observer {
+        eventViewModel.collectEvent.observe(this, Observer {
             for (index in articleAdapter.data.indices) {
                 if (articleAdapter.data[index].id == it.id) {
                     articleAdapter.data[index].collect = it.collect

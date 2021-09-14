@@ -82,7 +82,7 @@ class ProjectFragment : BaseFragment<ProjectViewModel, FragmentViewpagerBinding>
                 loadsir.setErrorText(it.errorMsg)
             })
         })
-        appViewModel.appColor.observeInFragment(this, Observer {
+        appViewModel.appColor.observe(this, Observer {
             setUiTheme(it, viewpager_linear, loadsir)
         })
     }

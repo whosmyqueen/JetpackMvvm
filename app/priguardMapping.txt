@@ -6636,7 +6636,7 @@ com.kunminx.architecture.ui.callback.ProtectedUnPeekLiveData -> com.kunminx.arch
     void lambda$observe$0$ProtectedUnPeekLiveData(java.lang.Integer,androidx.lifecycle.Observer,java.lang.Object) -> b
     void observe(java.lang.Integer,androidx.lifecycle.LifecycleOwner,androidx.lifecycle.Observer) -> c
     void observeInActivity(androidx.appcompat.app.AppCompatActivity,androidx.lifecycle.Observer) -> d
-    void observeInFragment(androidx.fragment.app.Fragment,androidx.lifecycle.Observer) -> e
+    void observe(androidx.fragment.app.Fragment,androidx.lifecycle.Observer) -> e
 com.kunminx.architecture.ui.callback.ProtectedUnPeekLiveDataV3 -> com.kunminx.architecture.ui.callback.ProtectedUnPeekLiveDataV3:
     java.util.TimerTask mTask -> f
     int DELAY_TO_CLEAR_EVENT -> d
