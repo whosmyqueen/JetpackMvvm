@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.include_toolbar.*
 import me.hgj.jetpackmvvm.demo.R
 import me.hgj.jetpackmvvm.demo.app.appViewModel
 import me.hgj.jetpackmvvm.demo.app.base.BaseFragment
+import me.hgj.jetpackmvvm.demo.app.base.BaseFragment1
 import me.hgj.jetpackmvvm.demo.app.eventViewModel
 import me.hgj.jetpackmvvm.demo.app.ext.*
 import me.hgj.jetpackmvvm.demo.app.weight.banner.HomeBannerAdapter
@@ -37,7 +38,7 @@ import me.hgj.jetpackmvvm.ext.parseState
  * 时间　: 2019/12/27
  * 描述　:
  */
-class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
+class HomeFragment : BaseFragment1<HomeViewModel, FragmentHomeBinding>() {
 
     //适配器
     private val articleAdapter: AriticleAdapter by lazy { AriticleAdapter(arrayListOf(), true) }
@@ -54,18 +55,16 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
     //请求数据ViewModel
     private val requestHomeViewModel: RequestHomeViewModel by viewModels()
 
-    override fun layoutId() = R.layout.fragment_home
-
     override fun initView(savedInstanceState: Bundle?) {
         //状态页配置
-        loadsir = loadServiceInit(swipeRefresh) {
+        loadsir = loadServiceInit(mViewBind.includeList.includeRecyclerview.swipeRefresh) {
             //点击重试时触发的操作
             loadsir.showLoading()
             requestHomeViewModel.getBannerData()
             requestHomeViewModel.getHomeData(true)
         }
-        //初始化 toolbar
-        toolbar.run {
+        //初始化
+        mViewBind.includeToolbar.toolbar.run {
             init("首页")
             inflateMenu(R.menu.home_menu)
             setOnMenuItemClickListener {
@@ -78,17 +77,17 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
             }
         }
         //初始化recyclerView
-        recyclerView.init(LinearLayoutManager(context), articleAdapter).let {
+        mViewBind.includeList.includeRecyclerview.recyclerView.init(LinearLayoutManager(context), articleAdapter).let {
             //因为首页要添加轮播图，所以我设置了firstNeedTop字段为false,即第一条数据不需要设置间距
             it.addItemDecoration(SpaceItemDecoration(0, ConvertUtils.dp2px(8f), false))
             footView = it.initFooter(SwipeRecyclerView.LoadMoreListener {
                 requestHomeViewModel.getHomeData(false)
             })
             //初始化FloatingActionButton
-            it.initFloatBtn(floatbtn)
+            it.initFloatBtn(mViewBind.includeList.floatbtn)
         }
         //初始化 SwipeRefreshLayout
-        swipeRefresh.init {
+        mViewBind.includeList.includeRecyclerview.swipeRefresh.init {
             //触发刷新监听时请求数据
             requestHomeViewModel.getHomeData(true)
         }
@@ -104,7 +103,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
                 nav().navigateAction(R.id.action_to_webFragment, Bundle().apply {
                     putParcelable(
                         "ariticleData",
-                        articleAdapter.data[position - this@HomeFragment.recyclerView.headerCount]
+                        articleAdapter.data[position - this@HomeFragment.mViewBind.includeList.includeRecyclerview.recyclerView.headerCount]
                     )
                 })
             }
@@ -117,7 +116,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
                             Bundle().apply {
                                 putInt(
                                     "id",
-                                    articleAdapter.data[position - this@HomeFragment.recyclerView.headerCount].userId
+                                    articleAdapter.data[position - this@HomeFragment.mViewBind.includeList.includeRecyclerview.recyclerView.headerCount].userId
                                 )
                             })
                     }
@@ -143,13 +142,13 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
             //监听首页文章列表请求的数据变化
             homeDataState.observe(viewLifecycleOwner, Observer {
                 //设值 新写了个拓展函数，搞死了这个恶心的重复代码
-                loadListData(it, articleAdapter, loadsir, recyclerView, swipeRefresh)
+                loadListData(it, articleAdapter, loadsir, mViewBind.includeList.includeRecyclerview.recyclerView, mViewBind.includeList.includeRecyclerview.swipeRefresh)
             })
             //监听轮播图请求的数据变化
             bannerData.observe(viewLifecycleOwner, Observer { resultState ->
                 parseState(resultState, { data ->
                     //请求轮播图数据成功，添加轮播图到headview ，如果等于0说明没有添加过头部，添加一个
-                    if (recyclerView.headerCount == 0) {
+                    if (mViewBind.includeList.includeRecyclerview.recyclerView.headerCount == 0) {
                         val headview = LayoutInflater.from(context).inflate(R.layout.include_banner, null).apply {
                                     findViewById<BannerViewPager<BannerResponse, HomeBannerViewHolder>>(R.id.banner_view).apply {
                                         adapter = HomeBannerAdapter()
@@ -160,8 +159,8 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
                                         create(data)
                                     }
                                 }
-                        recyclerView.addHeaderView(headview)
-                        recyclerView.scrollToPosition(0)
+                        mViewBind.includeList.includeRecyclerview.recyclerView.addHeaderView(headview)
+                        mViewBind.includeList.includeRecyclerview.recyclerView.scrollToPosition(0)
                     }
                 })
             })
@@ -201,8 +200,8 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
                 articleAdapter.notifyDataSetChanged()
             })
             //监听全局的主题颜色改变
-            appColor.observe(this@HomeFragment) {
-                setUiTheme(it, toolbar, floatbtn, swipeRefresh, loadsir, footView)
+            appColor.observeInFragment(this@HomeFragment) {
+                setUiTheme(it, mViewBind.includeToolbar.toolbar, mViewBind.includeList.floatbtn, mViewBind.includeList.includeRecyclerview.swipeRefresh, loadsir, footView)
             }
             //监听全局的列表动画改编
             appAnimation.observe(this@HomeFragment) {

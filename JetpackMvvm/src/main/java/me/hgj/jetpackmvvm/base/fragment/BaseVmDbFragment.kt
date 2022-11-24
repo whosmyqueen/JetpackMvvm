@@ -4,16 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import me.hgj.jetpackmvvm.base.viewmodel.BaseViewModel
-import me.hgj.jetpackmvvm.ext.getVmClazz
-import me.hgj.jetpackmvvm.network.manager.NetState
-import me.hgj.jetpackmvvm.network.manager.NetworkStateManager
+import me.hgj.jetpackmvvm.ext.inflateBindingWithGeneric
 
 /**
  * 作者　: hegaojian
@@ -23,17 +16,23 @@ import me.hgj.jetpackmvvm.network.manager.NetworkStateManager
  */
 abstract class BaseVmDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : BaseVmFragment<VM>() {
 
+    override fun layoutId() = 0
+
     //该类绑定的ViewDataBinding
-    lateinit var mDatabind: DB
+    private var _binding: DB? = null
+    val mDatabind: DB get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mDatabind = DataBindingUtil.inflate(inflater, layoutId(), container, false)
-        mDatabind.lifecycleOwner = this
+        _binding  = inflateBindingWithGeneric(inflater,container,false)
         return mDatabind.root
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

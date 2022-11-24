@@ -20,13 +20,13 @@
  
 #### APK下载：
 
-- [Github下载](https://github.com/hegaojian/JetpackMvvm/releases/download/1.1.8/app-release.apk)
+- [Github下载](https://github.com/hegaojian/JetpackMvvm/releases/download/1.2.6/app-release.apk)
 
 - [firm下载(推荐)](http://d.6short.com/v9q7)
 
 - 扫码下载(推荐)
 
-![](https://upload-images.jianshu.io/upload_images/9305757-4999111e26d5e93a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](https://upload-images.jianshu.io/upload_images/9305757-8ca8324f5690198e.png?imageMogr2/auto-orient/strip|imageView2/2/format/webp)
   
   
 ## 1.如何集成
@@ -34,12 +34,6 @@
 - **1.1 在root's build.gradle中加入Jitpack仓库**
 
 ``` gradle
-buildscript {
-    repositories {
-        ...
-        maven { url 'https://jitpack.io' }
-    }
-}
 allprojects {
     repositories {
         ...
@@ -53,11 +47,11 @@ allprojects {
 ``` gradle
 dependencies {
   ...
-  implementation 'com.github.hegaojian:JetpackMvvm:1.2.5'
+  implementation 'com.github.hegaojian:JetpackMvvm:1.2.7'
 }
 ```
 
-- **1.3 在app's build.gradle中，android 模块下开启DataBinding(如果你不想用DataBinding,请忽略这一步)**
+- **1.3 在app's build.gradle中，android 模块下按需开启DataBinding与ViewBinding**
 
 ``` gradle
 AndroidStudio 4.0 以下版本------>
@@ -66,6 +60,9 @@ android {
     dataBinding {
         enabled = true 
     }
+    viewBinding {
+        enabled = true
+    }
 }
 
 AndroidStudio 4.0及以上版本 ------>
@@ -73,6 +70,7 @@ android {
     ...
    buildFeatures {
         dataBinding = true
+        viewBinding = true
     }
 }
  
@@ -81,8 +79,9 @@ android {
 ## 2.继承基类
 一般我们项目中都会有一套自己定义的符合业务需求的基类 ***BaseActivity/BaseFragment***，所以我们的基类需要**继承本框架的Base类**
 
-- 不想用Databinding的-------可以继承 BaseVmActivity/BaseVmFragment
-- 用Databinding的-----------可以继承BaseVmDbActivity/BaseVmDbFragment**
+- 不想用Databinding与ViewBinding-------可以继承 BaseVmActivity/BaseVmFragment
+- 用Databinding-----------可以继承BaseVmDbActivity/BaseVmDbFragment**
+- 用Viewbinding-----------可以继承BaseVmVbActivity/BaseVmVbFragment**
 
 **Activity：**
 
@@ -121,10 +120,6 @@ abstract class BaseActivity<VM : BaseViewModel, DB : ViewDataBinding> : BaseVmDb
 **Fragment：**
 ``` kotlin
 abstract class BaseFragment<VM : BaseViewModel,DB:ViewDataBinding> : BaseVmDbFragment<VM,DB>() {
-    /**
-     * 当前Fragment绑定的视图布局Id abstract修饰供子类实现
-     */
-    abstract override fun layoutId(): Int
    
     abstract override fun initView(savedInstanceState: Bundle?)
 
@@ -163,19 +158,7 @@ abstract class BaseFragment<VM : BaseViewModel,DB:ViewDataBinding> : BaseVmDbFra
 
 ## 3.编写一个登录功能
 
-- **3.1 编写fragment_login.xml界面后转换成 databind 布局（鼠标停在根布局，Alt+Enter 点击提示 Convert to data binding layout即可）**
-``` xml
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:bind="http://schemas.android.com/tools">
-    <data>
-       
-    </data>
-    <LinearLayout>
-       ....
-    </LinearLayout>
- </layout>   
-```
-- **3.2 创建LoginViewModel类继承BaseViewModel**
+- **3.1 创建LoginViewModel类继承BaseViewModel**
 
 ``` xml
 class LoginViewModel : BaseViewModel() {
@@ -183,14 +166,9 @@ class LoginViewModel : BaseViewModel() {
 }
 ```
 
-- **3.3 创建LoginFragment 继承基类传入相关泛型,第一个泛型为你创建的LoginViewModel,第二个泛型为ViewDataBind，保存fragment_login.xml后databinding会生成一个FragmentLoginBinding类。（如果没有生成，试着点击Build->Clean Project）**
+- **3.2 创建LoginFragment 继承基类传入相关泛型,第一个泛型为你创建的LoginViewModel,第二个泛型为ViewDataBind，保存fragment_login.xml后databinding会生成一个FragmentLoginBinding类。（如果没有生成，试着点击Build->Clean Project）**
 ``` kotlin
 class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
-    
-    /**
-     *  当前fragment绑定的布局
-     */
-    override fun layoutId() = R.layout.fragment_login
     
     /**
      *  初始化操作
@@ -318,11 +296,6 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
     private val requestLoginRegisterViewModel: RequestLoginRegisterViewModel by viewModels()
     
     /**
-     *  当前fragment绑定的布局
-     */
-    override fun layoutId() = R.layout.fragment_login
-    
-    /**
      *  初始化操作
      */
     override fun initView(savedInstanceState: Bundle?) {
@@ -446,19 +419,13 @@ private val mainViewModel by lazy { getAppViewModel<MainViewModel>()}
 
 ``` kotlin 
 -keep class me.hgj.jetpackmvvm.**{*;}
--keep class com.google.android.material.** {*;}
--keep class androidx.** {*;}
--keep public class * extends androidx.**
--keep interface androidx.** {*;}
--dontwarn com.google.android.material.**
--dontnote com.google.android.material.**
--dontwarn androidx.**
+################ ViewBinding & DataBinding ###############
+-keepclassmembers class * implements androidx.viewbinding.ViewBinding {
+  public static * inflate(android.view.LayoutInflater);
+  public static * inflate(android.view.LayoutInflater, android.view.ViewGroup, boolean);
+  public static * bind(android.view.View);
+}
 ```
-
-
-## 感谢
-- [Jetpack-MVVM-Best-Practice](https://github.com/KunMinX/Jetpack-MVVM-Best-Practice)
-- [重学安卓](https://xiaozhuanlan.com/kunminx?rel=8184827882)
 
 ## 联系
 - QQ交流群：419581249

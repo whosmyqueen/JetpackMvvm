@@ -13,17 +13,19 @@ android {
         applicationId "me.hgj.jetpackmvvm.demo"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 25
-        versionName "1.2.5"
+        versionCode 27
+        versionName "1.2.7"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
       /* ndk {
-            // 设置支持的SO库架构 一般只设置这个就阔以设配所有的设备了，还可以减少apk的大小
+            // 设置支持的SO库架构
             abiFilters 'armeabi','armeabi-v7a'
         }*/
         multiDexEnabled true
     }
     buildFeatures {
+        //这2个为非必选，想用哪个就保留那个 用的话一定要加上项目中的 ViewBinding & DataBinding 混淆规则
         dataBinding = true
+        viewBinding = true
     }
 
     //使用Kotlin实验特性
@@ -129,9 +131,4 @@ dependencies {
     implementation 'me.jessyan:autosize:1.2.1'
     //防崩溃
     implementation 'cat.ereza:customactivityoncrash:2.3.0'
-    //下载
-    implementation("com.liulishuo.filedownloader:library:1.7.7") {
-        exclude group: "com.android.support"
-    }
-    implementation 'com.louiscad.splitties:splitties-collections:2.1.1'
 }

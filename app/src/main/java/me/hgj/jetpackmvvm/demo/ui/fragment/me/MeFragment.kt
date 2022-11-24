@@ -34,8 +34,6 @@ class MeFragment : BaseFragment<MeViewModel, FragmentMeBinding>() {
 
     private val requestMeViewModel: RequestMeViewModel by viewModels()
 
-    override fun layoutId() = R.layout.fragment_me
-
     override fun initView(savedInstanceState: Bundle?) {
         mDatabind.vm = mViewModel
         mDatabind.click = ProxyClick()
@@ -143,11 +141,6 @@ class MeFragment : BaseFragment<MeViewModel, FragmentMeBinding>() {
         /** 设置*/
         fun setting() {
             nav().navigateAction(R.id.action_mainfragment_to_settingFragment)
-        }
-
-        /**demo*/
-        fun demo() {
-            nav().navigateAction(R.id.action_to_demoFragment)
         }
 
     }

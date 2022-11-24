@@ -23,7 +23,7 @@ class RequestLoginRegisterViewModel : BaseViewModel() {
 
     fun loginReq(username: String, password: String) {
         //1.这种是在 Activity/Fragment的监听回调中拿到已脱壳的数据（项目有基类的可以用）
-        request(
+       request(
             { apiService.login(username, password) }//请求体
             , loginResult,//请求的返回结果，请求成功与否都会改变该值，在Activity或fragment中监听回调结果，具体可看loginActivity中的回调
             true,//是否显示等待框，，默认false不显示 可以默认不传
@@ -33,7 +33,7 @@ class RequestLoginRegisterViewModel : BaseViewModel() {
         /*requestNoCheck({HttpRequestCoroutine.login(username,password)},loginResult2,true)*/
 
         //3. 这种是直接在当前ViewModel中就拿到了脱壳数据数据，做一层封装再给Activity/Fragment，如果 （项目有基类的可以用）
-        /* request({HttpRequestCoroutine.login(username,password)},{
+         /*request({apiService.login(username, password)},{
              //请求成功 已自动处理了 请求结果是否正常
          },{
              //请求失败 网络异常，或者请求结果码错误都会回调在这里

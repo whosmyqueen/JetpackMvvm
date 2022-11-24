@@ -19,8 +19,6 @@ import me.hgj.jetpackmvvm.demo.viewmodel.state.MainViewModel
  */
 class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
 
-    override fun layoutId() = R.layout.fragment_main
-
     override fun initView(savedInstanceState: Bundle?) {
         //初始化viewpager2
         mainViewpager.initMain(this)

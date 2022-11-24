@@ -106,6 +106,8 @@ fun <T> BaseViewModel.request(
             resultState.paresResult(it)
         }.onFailure {
             it.message?.loge()
+            //打印错误栈信息
+            it.printStackTrace()
             resultState.paresException(it)
         }
     }
@@ -133,6 +135,8 @@ fun <T> BaseViewModel.requestNoCheck(
             resultState.paresResult(it)
         }.onFailure {
             it.message?.loge()
+            //打印错误栈信息
+            it.printStackTrace()
             resultState.paresException(it)
         }
     }
@@ -172,6 +176,8 @@ fun <T> BaseViewModel.request(
             }.onFailure { e ->
                 //打印错误消息
                 e.message?.loge()
+                //打印错误栈信息
+                e.printStackTrace()
                 //失败回调
                 error(ExceptionHandle.handleException(e))
             }
@@ -181,6 +187,8 @@ fun <T> BaseViewModel.request(
                 loadingChange.dismissDialog.postValue(false)
             //打印错误消息
             it.message?.loge()
+            //打印错误栈信息
+            it.printStackTrace()
             //失败回调
             error(ExceptionHandle.handleException(it))
         }
@@ -221,6 +229,8 @@ fun <T> BaseViewModel.requestNoCheck(
                 loadingChange.dismissDialog.postValue(false)
             //打印错误消息
             it.message?.loge()
+            //打印错误栈信息
+            it.printStackTrace()
             //失败回调
             error(ExceptionHandle.handleException(it))
         }
