@@ -182,7 +182,7 @@ class HomeFragment : BaseFragment1<HomeViewModel, FragmentHomeBinding>() {
         })
         appViewModel.run {
             //监听账户信息是否改变 有值时(登录)将相关的数据设置为已收藏，为空时(退出登录)，将已收藏的数据变为未收藏
-            userInfo.observe(this@HomeFragment, {
+            userInfo.observe(this@HomeFragment) {
                 if (it != null) {
                     it.collectIds.forEach { id ->
                         for (item in articleAdapter.data) {
@@ -198,9 +198,9 @@ class HomeFragment : BaseFragment1<HomeViewModel, FragmentHomeBinding>() {
                     }
                 }
                 articleAdapter.notifyDataSetChanged()
-            })
+            }
             //监听全局的主题颜色改变
-            appColor.observeInFragment(this@HomeFragment) {
+            appColor.observe(this@HomeFragment) {
                 setUiTheme(it, mViewBind.includeToolbar.toolbar, mViewBind.includeList.floatbtn, mViewBind.includeList.includeRecyclerview.swipeRefresh, loadsir, footView)
             }
             //监听全局的列表动画改编
