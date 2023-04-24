@@ -1,11 +1,16 @@
 package me.hgj.jetpackmvvm.ext
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import me.hgj.jetpackmvvm.base.activity.BaseVmActivity
 import me.hgj.jetpackmvvm.base.fragment.BaseVmFragment
 import me.hgj.jetpackmvvm.base.viewmodel.BaseViewModel
+import me.hgj.jetpackmvvm.callback.livedata.event.EventLiveData
 import me.hgj.jetpackmvvm.ext.util.loge
 import me.hgj.jetpackmvvm.network.AppException
 import me.hgj.jetpackmvvm.network.BaseResponse
@@ -39,10 +44,12 @@ fun <T> BaseVmActivity<*>.parseState(
             showLoading(resultState.loadingMessage)
             onLoading?.run { this }
         }
+
         is ResultState.Success -> {
             dismissLoading()
             onSuccess(resultState.data)
         }
+
         is ResultState.Error -> {
             dismissLoading()
             onError?.run { this(resultState.error) }
@@ -62,20 +69,22 @@ fun <T> BaseVmFragment<*>.parseState(
     resultState: ResultState<T>,
     onSuccess: (T) -> Unit,
     onError: ((AppException) -> Unit)? = null,
-    onLoading: ((message:String) -> Unit)? = null
+    onLoading: ((message: String) -> Unit)? = null
 ) {
     when (resultState) {
         is ResultState.Loading -> {
-            if(onLoading==null){
+            if (onLoading == null) {
                 showLoading(resultState.loadingMessage)
-            }else{
+            } else {
                 onLoading.invoke(resultState.loadingMessage)
             }
         }
+
         is ResultState.Success -> {
             dismissLoading()
             onSuccess(resultState.data)
         }
+
         is ResultState.Error -> {
             dismissLoading()
             onError?.run { this(resultState.error) }
@@ -93,7 +102,7 @@ fun <T> BaseVmFragment<*>.parseState(
  */
 fun <T> BaseViewModel.request(
     block: suspend () -> BaseResponse<T>,
-    resultState: MutableLiveData<ResultState<T>>,
+    resultState: EventLiveData<ResultState<T>>,
     isShowDialog: Boolean = false,
     loadingMessage: String = "请求网络中...",
 ): Job {
@@ -122,7 +131,7 @@ fun <T> BaseViewModel.request(
  */
 fun <T> BaseViewModel.requestNoCheck(
     block: suspend () -> T,
-    resultState: MutableLiveData<ResultState<T>>,
+    resultState: EventLiveData<ResultState<T>>,
     isShowDialog: Boolean = false,
     loadingMessage: String = "请求网络中..."
 ): Job {
@@ -249,6 +258,7 @@ suspend fun <T> executeResponse(
             response.isSucces() -> {
                 success(response.getResponseData())
             }
+
             else -> {
                 throw AppException(
                     response.getResponseCode(),

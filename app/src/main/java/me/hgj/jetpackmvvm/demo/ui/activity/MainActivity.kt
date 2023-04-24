@@ -50,10 +50,10 @@ class MainActivity : BaseActivity1<MainViewModel, ActivityMainBinding>() {
     }
 
     override fun createObserver() {
-        appViewModel.appColor.observe(this, {
+        appViewModel.appColor.observe(this) {
             supportActionBar?.setBackgroundDrawable(ColorDrawable(it))
             StatusBarUtil.setColor(this, it, 0)
-        })
+        }
     }
 
     /**
