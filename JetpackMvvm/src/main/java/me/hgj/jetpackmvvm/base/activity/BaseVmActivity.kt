@@ -42,9 +42,9 @@ abstract class BaseVmActivity<VM : BaseViewModel> : AppCompatActivity() {
         registerUiChange()
         initView(savedInstanceState)
         createObserver()
-        NetworkStateManager.instance.mNetworkStateCallback.observe(this, {
+        NetworkStateManager.instance.mNetworkStateCallback.observe(this) {
             onNetworkStateChanged(it)
-        })
+        }
     }
 
     /**
@@ -56,7 +56,7 @@ abstract class BaseVmActivity<VM : BaseViewModel> : AppCompatActivity() {
      * 创建viewModel
      */
     private fun createViewModel(): VM {
-        return ViewModelProvider(this).get(getVmClazz(this))
+        return ViewModelProvider(this)[getVmClazz(this)]
     }
 
     /**
@@ -69,13 +69,13 @@ abstract class BaseVmActivity<VM : BaseViewModel> : AppCompatActivity() {
      */
     private fun registerUiChange() {
         //显示弹窗
-        mViewModel.loadingChange.showDialog.observe(this, {
+        mViewModel.loadingChange.showDialog.observe(this) {
             showLoading(it)
-        })
+        }
         //关闭弹窗
-        mViewModel.loadingChange.dismissDialog.observe(this, {
+        mViewModel.loadingChange.dismissDialog.observe(this) {
             dismissLoading()
-        })
+        }
     }
 
     /**
@@ -85,13 +85,13 @@ abstract class BaseVmActivity<VM : BaseViewModel> : AppCompatActivity() {
     protected fun addLoadingObserve(vararg viewModels: BaseViewModel) {
         viewModels.forEach { viewModel ->
             //显示弹窗
-            viewModel.loadingChange.showDialog.observe(this, {
+            viewModel.loadingChange.showDialog.observe(this) {
                 showLoading(it)
-            })
+            }
             //关闭弹窗
-            viewModel.loadingChange.dismissDialog.observe(this, {
+            viewModel.loadingChange.dismissDialog.observe(this) {
                 dismissLoading()
-            })
+            }
         }
     }
 

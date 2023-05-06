@@ -27,6 +27,7 @@ abstract class BaseVmFragment<VM : BaseViewModel> : Fragment() {
     private val handler = Handler(Looper.getMainLooper())
 
     //是否第一次加载
+    @Volatile
     private var isFirst: Boolean = true
 
     lateinit var mViewModel: VM
@@ -70,7 +71,7 @@ abstract class BaseVmFragment<VM : BaseViewModel> : Fragment() {
      * 创建viewModel
      */
     private fun createViewModel(): VM {
-        return ViewModelProvider(this).get(getVmClazz(this))
+        return ViewModelProvider(this)[getVmClazz(this)]
     }
 
     /**
@@ -99,19 +100,17 @@ abstract class BaseVmFragment<VM : BaseViewModel> : Fragment() {
     private fun onVisible() {
         if (lifecycle.currentState == Lifecycle.State.STARTED && isFirst) {
             // 延迟加载 防止 切换动画还没执行完毕时数据就已经加载好了，这时页面会有渲染卡顿
-            handler.postDelayed( {
+            handler.postDelayed({
                 lazyLoadData()
                 //在Fragment中，只有懒加载过了才能开启网络变化监听
-                NetworkStateManager.instance.mNetworkStateCallback.observe(
-                    this,
-                    {
-                        //不是首次订阅时调用方法，防止数据第一次监听错误
-                        if (!isFirst) {
-                            onNetworkStateChanged(it)
-                        }
-                    })
+                NetworkStateManager.instance.mNetworkStateCallback.observe(this) {
+                    //不是首次订阅时调用方法，防止数据第一次监听错误
+                    if (!isFirst) {
+                        onNetworkStateChanged(it)
+                    }
+                }
                 isFirst = false
-            },lazyLoadTime())
+            }, lazyLoadTime())
         }
     }
 
@@ -128,12 +127,12 @@ abstract class BaseVmFragment<VM : BaseViewModel> : Fragment() {
      * 注册 UI 事件
      */
     private fun registerDefUIChange() {
-        mViewModel.loadingChange.showDialog.observe(this, {
+        mViewModel.loadingChange.showDialog.observe(viewLifecycleOwner) {
             showLoading(it)
-        })
-        mViewModel.loadingChange.dismissDialog.observe(this, {
+        }
+        mViewModel.loadingChange.dismissDialog.observe(viewLifecycleOwner) {
             dismissLoading()
-        })
+        }
     }
 
     /**
@@ -143,13 +142,13 @@ abstract class BaseVmFragment<VM : BaseViewModel> : Fragment() {
     protected fun addLoadingObserve(vararg viewModels: BaseViewModel) {
         viewModels.forEach { viewModel ->
             //显示弹窗
-            viewModel.loadingChange.showDialog.observe(this, {
+            viewModel.loadingChange.showDialog.observe(this) {
                 showLoading(it)
-            })
+            }
             //关闭弹窗
-            viewModel.loadingChange.dismissDialog.observe(this, {
+            viewModel.loadingChange.dismissDialog.observe(this) {
                 dismissLoading()
-            })
+            }
         }
     }
 
