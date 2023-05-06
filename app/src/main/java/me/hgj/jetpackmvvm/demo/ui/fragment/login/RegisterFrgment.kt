@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.widget.CompoundButton
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import kotlinx.android.synthetic.main.fragment_register.*
-import kotlinx.android.synthetic.main.include_toolbar.*
 import me.hgj.jetpackmvvm.demo.R
 import me.hgj.jetpackmvvm.demo.app.appViewModel
 import me.hgj.jetpackmvvm.demo.app.base.BaseFragment
@@ -27,18 +25,18 @@ import me.hgj.jetpackmvvm.ext.parseState
  */
 class RegisterFrgment : BaseFragment<LoginRegisterViewModel, FragmentRegisterBinding>() {
 
-    private val requestLoginRegisterViewModel:RequestLoginRegisterViewModel by viewModels()
+    private val requestLoginRegisterViewModel: RequestLoginRegisterViewModel by viewModels()
 
     override fun initView(savedInstanceState: Bundle?) {
         mDatabind.viewmodel = mViewModel
         mDatabind.click = ProxyClick()
-        toolbar.initClose("注册") {
+        mDatabind.header.toolbar.initClose("注册") {
             nav().navigateUp()
         }
         //设置颜色跟主题颜色一致
         appViewModel.appColor.value?.let {
-            SettingUtil.setShapColor(registerSub, it)
-            toolbar.setBackgroundColor(it)
+            SettingUtil.setShapColor(mDatabind.registerSub, it)
+            mDatabind.header.toolbar.setBackgroundColor(it)
         }
     }
 

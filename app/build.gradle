@@ -1,9 +1,6 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
-apply plugin: 'kotlin-android-extensions'
-
+apply plugin: 'kotlin-parcelize'
 apply plugin: 'kotlin-kapt'
 
 android {
@@ -27,10 +24,6 @@ android {
         viewBinding = true
     }
 
-    //使用Kotlin实验特性
-    androidExtensions {
-        experimental = true
-    }
     buildTypes {
         debug {
             minifyEnabled false
@@ -73,8 +66,8 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.4.1'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.4.1'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
     //test
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

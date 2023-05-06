@@ -1,7 +1,7 @@
 package me.hgj.jetpackmvvm.demo.viewmodel.request
 
-import androidx.lifecycle.MutableLiveData
 import me.hgj.jetpackmvvm.base.viewmodel.BaseViewModel
+import me.hgj.jetpackmvvm.callback.livedata.event.EventLiveData
 import me.hgj.jetpackmvvm.demo.app.network.apiService
 import me.hgj.jetpackmvvm.demo.data.model.bean.IntegralResponse
 import me.hgj.jetpackmvvm.ext.request
@@ -14,7 +14,7 @@ import me.hgj.jetpackmvvm.state.ResultState
  */
 class RequestMeViewModel : BaseViewModel() {
 
-    var meData = MutableLiveData<ResultState<IntegralResponse>>()
+    var meData = EventLiveData<ResultState<IntegralResponse>>()
 
     fun getIntegral() {
         request({ apiService.getIntegral() }, meData)

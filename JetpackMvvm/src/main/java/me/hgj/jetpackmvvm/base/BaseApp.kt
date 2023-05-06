@@ -16,18 +16,9 @@ import androidx.lifecycle.ViewModelStoreOwner
 
 open class BaseApp : Application(), ViewModelStoreOwner {
 
-    private lateinit var mAppViewModelStore: ViewModelStore
-
     private var mFactory: ViewModelProvider.Factory? = null
-
-    override fun getViewModelStore(): ViewModelStore {
-        return mAppViewModelStore
-    }
-
-    override fun onCreate() {
-        super.onCreate()
-        mAppViewModelStore = ViewModelStore()
-    }
+    override val viewModelStore: ViewModelStore
+        get() = ViewModelStore()
 
     /**
      * 获取一个全局的ViewModel

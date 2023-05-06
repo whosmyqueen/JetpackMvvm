@@ -10,9 +10,13 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/include_toolbar" />
+        <include
+            android:id="@+id/header"
+            layout="@layout/include_toolbar" />
 
-      <include layout="@layout/include_list"/>
+        <include
+            android:id="@+id/include_list"
+            layout="@layout/include_list" />
 
     </LinearLayout>
 </layout>

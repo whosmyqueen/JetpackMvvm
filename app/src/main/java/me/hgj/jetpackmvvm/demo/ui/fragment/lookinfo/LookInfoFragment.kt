@@ -7,15 +7,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.blankj.utilcode.util.ConvertUtils
 import com.kingja.loadsir.core.LoadService
 import com.yanzhenjie.recyclerview.SwipeRecyclerView
-import kotlinx.android.synthetic.main.fragment_lookinfo.*
-import kotlinx.android.synthetic.main.include_list.*
-import kotlinx.android.synthetic.main.include_recyclerview.*
-import kotlinx.android.synthetic.main.include_toolbar.*
 import me.hgj.jetpackmvvm.demo.R
 import me.hgj.jetpackmvvm.demo.app.appViewModel
 import me.hgj.jetpackmvvm.demo.app.base.BaseFragment
 import me.hgj.jetpackmvvm.demo.app.eventViewModel
-import me.hgj.jetpackmvvm.demo.app.ext.*
+import me.hgj.jetpackmvvm.demo.app.ext.init
+import me.hgj.jetpackmvvm.demo.app.ext.initClose
+import me.hgj.jetpackmvvm.demo.app.ext.initFloatBtn
+import me.hgj.jetpackmvvm.demo.app.ext.initFooter
+import me.hgj.jetpackmvvm.demo.app.ext.loadListData
+import me.hgj.jetpackmvvm.demo.app.ext.loadServiceInit
+import me.hgj.jetpackmvvm.demo.app.ext.showLoading
+import me.hgj.jetpackmvvm.demo.app.ext.showMessage
 import me.hgj.jetpackmvvm.demo.app.weight.recyclerview.SpaceItemDecoration
 import me.hgj.jetpackmvvm.demo.data.model.bean.CollectBus
 import me.hgj.jetpackmvvm.demo.databinding.FragmentLookinfoBinding
@@ -54,23 +57,23 @@ class LookInfoFragment : BaseFragment<LookInfoViewModel, FragmentLookinfoBinding
         }
         mDatabind.vm = mViewModel
 
-        appViewModel.appColor.value?.let { share_layout.setBackgroundColor(it) }
+        appViewModel.appColor.value?.let { mDatabind.shareLayout.setBackgroundColor(it) }
 
-        toolbar.initClose("他的信息") {
+        mDatabind.header.toolbar.initClose("他的信息") {
             nav().navigateUp()
         }
-        loadsir = loadServiceInit(share_linear) {
+        loadsir = loadServiceInit(mDatabind.shareLinear) {
             loadsir.showLoading()
             requestLookInfoViewModel.getLookinfo(shareId, true)
         }
-        recyclerView.init(LinearLayoutManager(context), articleAdapter).let {
+        mDatabind.includeList.includeRecyclerview.recyclerView.init(LinearLayoutManager(context), articleAdapter).let {
             it.addItemDecoration(SpaceItemDecoration(0, ConvertUtils.dp2px(8f)))
             it.initFooter(SwipeRecyclerView.LoadMoreListener {
                 requestLookInfoViewModel.getLookinfo(shareId, false)
             })
-            it.initFloatBtn(floatbtn)
+            it.initFloatBtn(mDatabind.includeList.floatbtn)
         }
-        swipeRefresh.init {
+        mDatabind.includeList.includeRecyclerview.swipeRefresh.init {
             requestLookInfoViewModel.getLookinfo(shareId, true)
         }
         articleAdapter.run {
@@ -85,7 +88,7 @@ class LookInfoFragment : BaseFragment<LookInfoViewModel, FragmentLookinfoBinding
                 nav().navigateAction(R.id.action_to_webFragment, Bundle().apply {
                     putParcelable(
                         "ariticleData",
-                        articleAdapter.data[position - this@LookInfoFragment.recyclerView.headerCount]
+                        articleAdapter.data[position - mDatabind.includeList.includeRecyclerview.recyclerView.headerCount]
                     )
                 })
             }
@@ -105,7 +108,13 @@ class LookInfoFragment : BaseFragment<LookInfoViewModel, FragmentLookinfoBinding
         })
         requestLookInfoViewModel.shareListDataUistate.observe(viewLifecycleOwner, Observer {
             //设值 新写了个拓展函数，搞死了这个恶心的重复代码
-            loadListData(it, articleAdapter, loadsir, recyclerView, swipeRefresh)
+            loadListData(
+                it,
+                articleAdapter,
+                loadsir,
+                mDatabind.includeList.includeRecyclerview.recyclerView,
+                mDatabind.includeList.includeRecyclerview.swipeRefresh
+            )
         })
         requestCollectViewModel.collectUiState.observe(viewLifecycleOwner, Observer {
             if (it.isSuccess) {
@@ -142,7 +151,7 @@ class LookInfoFragment : BaseFragment<LookInfoViewModel, FragmentLookinfoBinding
                 articleAdapter.notifyDataSetChanged()
             }
             //监听全局的收藏信息 收藏的Id跟本列表的数据id匹配则需要更新
-            eventViewModel.collectEvent.observe(this@LookInfoFragment, {
+            eventViewModel.collectEvent.observe(this@LookInfoFragment) {
                 for (index in articleAdapter.data.indices) {
                     if (articleAdapter.data[index].id == it.id) {
                         articleAdapter.data[index].collect = it.collect
@@ -150,7 +159,7 @@ class LookInfoFragment : BaseFragment<LookInfoViewModel, FragmentLookinfoBinding
                         break
                     }
                 }
-            })
+            }
         }
     }
 }

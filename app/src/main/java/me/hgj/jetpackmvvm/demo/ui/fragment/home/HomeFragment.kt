@@ -9,15 +9,19 @@ import com.blankj.utilcode.util.ConvertUtils
 import com.kingja.loadsir.core.LoadService
 import com.yanzhenjie.recyclerview.SwipeRecyclerView
 import com.zhpan.bannerview.BannerViewPager
-import kotlinx.android.synthetic.main.include_list.*
-import kotlinx.android.synthetic.main.include_recyclerview.*
-import kotlinx.android.synthetic.main.include_toolbar.*
 import me.hgj.jetpackmvvm.demo.R
 import me.hgj.jetpackmvvm.demo.app.appViewModel
-import me.hgj.jetpackmvvm.demo.app.base.BaseFragment
 import me.hgj.jetpackmvvm.demo.app.base.BaseFragment1
 import me.hgj.jetpackmvvm.demo.app.eventViewModel
-import me.hgj.jetpackmvvm.demo.app.ext.*
+import me.hgj.jetpackmvvm.demo.app.ext.init
+import me.hgj.jetpackmvvm.demo.app.ext.initFloatBtn
+import me.hgj.jetpackmvvm.demo.app.ext.initFooter
+import me.hgj.jetpackmvvm.demo.app.ext.loadListData
+import me.hgj.jetpackmvvm.demo.app.ext.loadServiceInit
+import me.hgj.jetpackmvvm.demo.app.ext.setAdapterAnimation
+import me.hgj.jetpackmvvm.demo.app.ext.setUiTheme
+import me.hgj.jetpackmvvm.demo.app.ext.showLoading
+import me.hgj.jetpackmvvm.demo.app.ext.showMessage
 import me.hgj.jetpackmvvm.demo.app.weight.banner.HomeBannerAdapter
 import me.hgj.jetpackmvvm.demo.app.weight.banner.HomeBannerViewHolder
 import me.hgj.jetpackmvvm.demo.app.weight.recyclerview.DefineLoadMoreView
@@ -142,7 +146,13 @@ class HomeFragment : BaseFragment1<HomeViewModel, FragmentHomeBinding>() {
             //监听首页文章列表请求的数据变化
             homeDataState.observe(viewLifecycleOwner, Observer {
                 //设值 新写了个拓展函数，搞死了这个恶心的重复代码
-                loadListData(it, articleAdapter, loadsir, mViewBind.includeList.includeRecyclerview.recyclerView, mViewBind.includeList.includeRecyclerview.swipeRefresh)
+                loadListData(
+                    it,
+                    articleAdapter,
+                    loadsir,
+                    mViewBind.includeList.includeRecyclerview.recyclerView,
+                    mViewBind.includeList.includeRecyclerview.swipeRefresh
+                )
             })
             //监听轮播图请求的数据变化
             bannerData.observe(viewLifecycleOwner, Observer { resultState ->
@@ -150,15 +160,17 @@ class HomeFragment : BaseFragment1<HomeViewModel, FragmentHomeBinding>() {
                     //请求轮播图数据成功，添加轮播图到headview ，如果等于0说明没有添加过头部，添加一个
                     if (mViewBind.includeList.includeRecyclerview.recyclerView.headerCount == 0) {
                         val headview = LayoutInflater.from(context).inflate(R.layout.include_banner, null).apply {
-                                    findViewById<BannerViewPager<BannerResponse, HomeBannerViewHolder>>(R.id.banner_view).apply {
-                                        adapter = HomeBannerAdapter()
-                                        setLifecycleRegistry(lifecycle)
-                                        setOnPageClickListener {
-                                            nav().navigateAction(R.id.action_to_webFragment, Bundle().apply {putParcelable("bannerdata", data[it])})
-                                        }
-                                        create(data)
-                                    }
+                            findViewById<BannerViewPager<BannerResponse, HomeBannerViewHolder>>(R.id.banner_view).apply {
+                                adapter = HomeBannerAdapter()
+                                setLifecycleRegistry(lifecycle)
+                                setOnPageClickListener {
+                                    nav().navigateAction(
+                                        R.id.action_to_webFragment,
+                                        Bundle().apply { putParcelable("bannerdata", data[it]) })
                                 }
+                                create(data)
+                            }
+                        }
                         mViewBind.includeList.includeRecyclerview.recyclerView.addHeaderView(headview)
                         mViewBind.includeList.includeRecyclerview.recyclerView.scrollToPosition(0)
                     }
@@ -201,7 +213,14 @@ class HomeFragment : BaseFragment1<HomeViewModel, FragmentHomeBinding>() {
             }
             //监听全局的主题颜色改变
             appColor.observe(this@HomeFragment) {
-                setUiTheme(it, mViewBind.includeToolbar.toolbar, mViewBind.includeList.floatbtn, mViewBind.includeList.includeRecyclerview.swipeRefresh, loadsir, footView)
+                setUiTheme(
+                    it,
+                    mViewBind.includeToolbar.toolbar,
+                    mViewBind.includeList.floatbtn,
+                    mViewBind.includeList.includeRecyclerview.swipeRefresh,
+                    loadsir,
+                    footView
+                )
             }
             //监听全局的列表动画改编
             appAnimation.observe(this@HomeFragment) {

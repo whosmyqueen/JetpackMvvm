@@ -10,9 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include layout="@layout/include_toolbar" />
+        <include layout="@layout/include_toolbar" android:id="@+id/header" />
 
-        <include layout="@layout/include_viewpager" />
+        <include layout="@layout/include_viewpager" android:id="@+id/include_vp" />
 
     </LinearLayout>
 </layout>

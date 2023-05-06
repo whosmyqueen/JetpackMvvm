@@ -1,15 +1,11 @@
 package me.hgj.jetpackmvvm.demo.ui.fragment.todo
 
 import android.os.Bundle
-import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.datetime.datePicker
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
-import kotlinx.android.synthetic.main.fragment_addtodo.*
-import kotlinx.android.synthetic.main.include_toolbar.*
-import me.hgj.jetpackmvvm.demo.R
 import me.hgj.jetpackmvvm.demo.app.appViewModel
 import me.hgj.jetpackmvvm.demo.app.base.BaseFragment
 import me.hgj.jetpackmvvm.demo.app.eventViewModel
@@ -21,12 +17,10 @@ import me.hgj.jetpackmvvm.demo.app.weight.customview.PriorityDialog
 import me.hgj.jetpackmvvm.demo.data.model.bean.TodoResponse
 import me.hgj.jetpackmvvm.demo.data.model.enums.TodoType
 import me.hgj.jetpackmvvm.demo.databinding.FragmentAddtodoBinding
-import me.hgj.jetpackmvvm.demo.generated.callback.OnClickListener
 import me.hgj.jetpackmvvm.demo.viewmodel.request.RequestTodoViewModel
 import me.hgj.jetpackmvvm.demo.viewmodel.state.TodoViewModel
 import me.hgj.jetpackmvvm.ext.nav
 import me.hgj.jetpackmvvm.ext.util.notNull
-import java.lang.ref.WeakReference
 import java.util.*
 
 /**
@@ -54,10 +48,10 @@ class AddTodoFragment : BaseFragment<TodoViewModel, FragmentAddtodoBinding>() {
                 mViewModel.todoColor.set(TodoType.byType(todo.priority).color)
             }
         }
-        toolbar.initClose(if (todoResponse == null) "添加TODO" else "修改TODO") {
+        mDatabind.header.toolbar.initClose(if (todoResponse == null) "添加TODO" else "修改TODO") {
             nav().navigateUp()
         }
-        appViewModel.appColor.value?.let { SettingUtil.setShapColor(addtodoSubmit, it) }
+        appViewModel.appColor.value?.let { SettingUtil.setShapColor(mDatabind.addtodoSubmit, it) }
     }
 
     override fun createObserver() {
@@ -111,12 +105,15 @@ class AddTodoFragment : BaseFragment<TodoViewModel, FragmentAddtodoBinding>() {
                 mViewModel.todoTitle.get().isEmpty() -> {
                     showMessage("请填写标题")
                 }
+
                 mViewModel.todoContent.get().isEmpty() -> {
                     showMessage("请填写内容")
                 }
+
                 mViewModel.todoTime.get().isEmpty() -> {
                     showMessage("请选择预计完成时间")
                 }
+
                 else -> {
                     todoResponse.notNull({
                         showMessage("确认提交编辑吗？", positiveButtonText = "提交", positiveAction = {

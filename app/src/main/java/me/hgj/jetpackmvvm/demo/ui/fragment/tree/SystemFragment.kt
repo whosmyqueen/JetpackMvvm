@@ -6,12 +6,16 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blankj.utilcode.util.ConvertUtils
 import com.kingja.loadsir.core.LoadService
-import kotlinx.android.synthetic.main.include_list.*
-import kotlinx.android.synthetic.main.include_recyclerview.*
 import me.hgj.jetpackmvvm.demo.R
 import me.hgj.jetpackmvvm.demo.app.appViewModel
 import me.hgj.jetpackmvvm.demo.app.base.BaseFragment
-import me.hgj.jetpackmvvm.demo.app.ext.*
+import me.hgj.jetpackmvvm.demo.app.ext.init
+import me.hgj.jetpackmvvm.demo.app.ext.initFloatBtn
+import me.hgj.jetpackmvvm.demo.app.ext.loadServiceInit
+import me.hgj.jetpackmvvm.demo.app.ext.setAdapterAnimation
+import me.hgj.jetpackmvvm.demo.app.ext.setUiTheme
+import me.hgj.jetpackmvvm.demo.app.ext.showError
+import me.hgj.jetpackmvvm.demo.app.ext.showLoading
 import me.hgj.jetpackmvvm.demo.app.weight.recyclerview.SpaceItemDecoration
 import me.hgj.jetpackmvvm.demo.data.model.bean.SystemResponse
 import me.hgj.jetpackmvvm.demo.databinding.IncludeListBinding
@@ -34,55 +38,45 @@ class SystemFragment : BaseFragment<TreeViewModel, IncludeListBinding>() {
     private val systemAdapter: SystemAdapter by lazy { SystemAdapter(arrayListOf()) }
 
     /** */
-    private  val requestTreeViewModel:RequestTreeViewModel by viewModels()
+    private val requestTreeViewModel: RequestTreeViewModel by viewModels()
 
-    override fun initView(savedInstanceState: Bundle?) {
-        //状态页配置
-        loadsir = loadServiceInit(swipeRefresh) {
-            //点击重试时触发的操作
+    override fun initView(savedInstanceState: Bundle?) { //状态页配置
+        loadsir = loadServiceInit(mDatabind.includeRecyclerview.swipeRefresh) { //点击重试时触发的操作
             loadsir.showLoading()
             requestTreeViewModel.getSystemData()
-        }
-        //初始化recyclerView
-        recyclerView.init(LinearLayoutManager(context), systemAdapter).let {
+        } //初始化recyclerView
+        mDatabind.includeRecyclerview.recyclerView.init(LinearLayoutManager(context), systemAdapter).let {
             it.addItemDecoration(SpaceItemDecoration(0, ConvertUtils.dp2px(8f)))
-            it.initFloatBtn(floatbtn)
-        }
-        //初始化 SwipeRefreshLayout
-        swipeRefresh.init {
-            //触发刷新监听时请求数据
+            it.initFloatBtn(mDatabind.floatbtn)
+        } //初始化 SwipeRefreshLayout
+        mDatabind.includeRecyclerview.swipeRefresh.init { //触发刷新监听时请求数据
             requestTreeViewModel.getSystemData()
         }
         systemAdapter.run {
             setOnItemClickListener { _, view, position ->
-                if(systemAdapter.data[position].children.isNotEmpty()){
-                    nav().navigateAction(R.id.action_mainfragment_to_systemArrFragment,
-                        Bundle().apply {
-                            putParcelable("data", systemAdapter.data[position])
-                        }
-                    )
+                if (systemAdapter.data[position].children.isNotEmpty()) {
+                    nav().navigateAction(R.id.action_mainfragment_to_systemArrFragment, Bundle().apply {
+                        putParcelable("data", systemAdapter.data[position])
+                    })
                 }
             }
             setChildClick { item: SystemResponse, view, position ->
-                nav().navigateAction(R.id.action_mainfragment_to_systemArrFragment,
-                        Bundle().apply {
-                            putParcelable("data", item)
-                            putInt("index", position)
-                        }
-                    )
+                nav().navigateAction(R.id.action_mainfragment_to_systemArrFragment, Bundle().apply {
+                    putParcelable("data", item)
+                    putInt("index", position)
+                })
             }
         }
     }
 
-    override fun lazyLoadData() {
-        //设置界面 加载中
+    override fun lazyLoadData() { //设置界面 加载中
         loadsir.showLoading()
         requestTreeViewModel.getSystemData()
     }
 
     override fun createObserver() {
         requestTreeViewModel.systemDataState.observe(viewLifecycleOwner, Observer {
-            swipeRefresh.isRefreshing = false
+            mDatabind.includeRecyclerview.swipeRefresh.isRefreshing = false
             if (it.isSuccess) {
                 loadsir.showSuccess()
                 systemAdapter.setList(it.listData)
@@ -91,12 +85,10 @@ class SystemFragment : BaseFragment<TreeViewModel, IncludeListBinding>() {
             }
         })
 
-        appViewModel.run {
-            //监听全局的主题颜色改变
+        appViewModel.run { //监听全局的主题颜色改变
             appColor.observe(this@SystemFragment, Observer {
-                setUiTheme(it, floatbtn, swipeRefresh, loadsir)
-            })
-            //监听全局的列表动画改编
+                setUiTheme(it, mDatabind.floatbtn, mDatabind.includeRecyclerview.swipeRefresh, loadsir)
+            }) //监听全局的列表动画改编
             appAnimation.observe(this@SystemFragment, Observer {
                 systemAdapter.setAdapterAnimation(it)
             })

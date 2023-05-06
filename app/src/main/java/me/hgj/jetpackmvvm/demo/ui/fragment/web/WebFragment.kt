@@ -14,8 +14,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.blankj.utilcode.util.VibrateUtils
 import com.just.agentweb.AgentWeb
-import kotlinx.android.synthetic.main.fragment_web.*
-import kotlinx.android.synthetic.main.include_toolbar.*
 import me.hgj.jetpackmvvm.demo.R
 import me.hgj.jetpackmvvm.demo.app.base.BaseFragment
 import me.hgj.jetpackmvvm.demo.app.eventViewModel
@@ -85,7 +83,7 @@ class WebFragment : BaseFragment<WebViewModel, FragmentWebBinding>() {
                 mViewModel.collectType = CollectType.Url.type
             }
         }
-        toolbar.run {
+        mDatabind.header.toolbar.run {
             //设置menu 关键代码
             mActivity.setSupportActionBar(this)
             initClose(mViewModel.showTitle) {
@@ -100,7 +98,7 @@ class WebFragment : BaseFragment<WebViewModel, FragmentWebBinding>() {
             }
         }
         preWeb = AgentWeb.with(this)
-            .setAgentWebParent(webcontent, LinearLayout.LayoutParams(-1, -1))
+            .setAgentWebParent(mDatabind.webcontent, LinearLayout.LayoutParams(-1, -1))
             .useDefaultIndicator()
             .createAgentWeb()
             .ready()
@@ -180,10 +178,12 @@ class WebFragment : BaseFragment<WebViewModel, FragmentWebBinding>() {
                     type = "text/plain"
                 }, "分享到"))
             }
+
             R.id.web_refresh -> {
                 //刷新网页
                 mAgentWeb?.urlLoader?.reload()
             }
+
             R.id.web_collect -> {
                 //点击收藏 震动一下
                 VibrateUtils.vibrate(40)
@@ -212,6 +212,7 @@ class WebFragment : BaseFragment<WebViewModel, FragmentWebBinding>() {
                     nav().navigate(R.id.action_to_loginFragment)
                 }
             }
+
             R.id.web_liulanqi -> {
                 //用浏览器打开
                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(mViewModel.url)))

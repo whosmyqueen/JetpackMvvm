@@ -7,14 +7,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.blankj.utilcode.util.ConvertUtils
 import com.kingja.loadsir.core.LoadService
 import com.yanzhenjie.recyclerview.SwipeRecyclerView
-import kotlinx.android.synthetic.main.include_list.*
-import kotlinx.android.synthetic.main.include_recyclerview.*
-import kotlinx.android.synthetic.main.include_toolbar.*
 import me.hgj.jetpackmvvm.demo.R
 import me.hgj.jetpackmvvm.demo.app.appViewModel
 import me.hgj.jetpackmvvm.demo.app.base.BaseFragment
 import me.hgj.jetpackmvvm.demo.app.eventViewModel
-import me.hgj.jetpackmvvm.demo.app.ext.*
+import me.hgj.jetpackmvvm.demo.app.ext.init
+import me.hgj.jetpackmvvm.demo.app.ext.initClose
+import me.hgj.jetpackmvvm.demo.app.ext.initFloatBtn
+import me.hgj.jetpackmvvm.demo.app.ext.initFooter
+import me.hgj.jetpackmvvm.demo.app.ext.loadServiceInit
+import me.hgj.jetpackmvvm.demo.app.ext.setErrorText
+import me.hgj.jetpackmvvm.demo.app.ext.showEmpty
+import me.hgj.jetpackmvvm.demo.app.ext.showLoading
+import me.hgj.jetpackmvvm.demo.app.ext.showMessage
 import me.hgj.jetpackmvvm.demo.app.weight.loadCallBack.ErrorCallback
 import me.hgj.jetpackmvvm.demo.app.weight.recyclerview.SpaceItemDecoration
 import me.hgj.jetpackmvvm.demo.data.model.bean.CollectBus
@@ -51,29 +56,23 @@ class SearchResultFragment : BaseFragment<SearchViewModel, FragmentListBinding>(
     override fun initView(savedInstanceState: Bundle?) {
         arguments?.let { arguments -> arguments.getString("searchKey")?.let { searchKey = it } }
 
-        toolbar.initClose(searchKey) {
+        mDatabind.header.toolbar.initClose(searchKey) {
             nav().navigateUp()
-        }
-        //状态页配置
-        loadsir = loadServiceInit(swipeRefresh) {
-            //点击重试时触发的操作
+        } //状态页配置
+        loadsir = loadServiceInit(mDatabind.includeList.includeRecyclerview.swipeRefresh) { //点击重试时触发的操作
             loadsir.showLoading()
             requestSearchViewModel.getSearchResultData(searchKey, true)
         }
 
         //初始化recyclerView
-        recyclerView.init(LinearLayoutManager(context), articleAdapter).let {
+        mDatabind.includeList.includeRecyclerview.recyclerView.init(LinearLayoutManager(context), articleAdapter).let {
             it.addItemDecoration(SpaceItemDecoration(0, ConvertUtils.dp2px(8f)))
-            it.initFooter(SwipeRecyclerView.LoadMoreListener {
-                //触发加载更多时请求数据
+            it.initFooter(SwipeRecyclerView.LoadMoreListener { //触发加载更多时请求数据
                 requestSearchViewModel.getSearchResultData(searchKey, false)
-            })
-            //初始化FloatingActionButton
-            it.initFloatBtn(floatbtn)
-        }
-        //初始化 SwipeRefreshLayout
-        swipeRefresh.init {
-            //触发刷新监听时请求数据
+            }) //初始化FloatingActionButton
+            it.initFloatBtn(mDatabind.includeList.floatbtn)
+        } //初始化 SwipeRefreshLayout
+        mDatabind.includeList.includeRecyclerview.swipeRefresh.init { //触发刷新监听时请求数据
             requestSearchViewModel.getSearchResultData(searchKey, true)
         }
 
@@ -94,11 +93,9 @@ class SearchResultFragment : BaseFragment<SearchViewModel, FragmentListBinding>(
             setOnItemChildClickListener { adapter, view, position ->
                 when (view.id) {
                     R.id.item_home_author, R.id.item_project_author -> {
-                        nav().navigateAction(
-                            R.id.action_searchResultFragment_to_lookInfoFragment,
-                            Bundle().apply {
-                                putInt("id", articleAdapter.data[position].userId)
-                            })
+                        nav().navigateAction(R.id.action_searchResultFragment_to_lookInfoFragment, Bundle().apply {
+                            putInt("id", articleAdapter.data[position].userId)
+                        })
                     }
                 }
             }
@@ -106,8 +103,7 @@ class SearchResultFragment : BaseFragment<SearchViewModel, FragmentListBinding>(
 
     }
 
-    override fun lazyLoadData() {
-        //设置界面 加载中
+    override fun lazyLoadData() { //设置界面 加载中
         loadsir.showLoading()
         requestSearchViewModel.getSearchResultData(searchKey, true)
     }
@@ -115,31 +111,25 @@ class SearchResultFragment : BaseFragment<SearchViewModel, FragmentListBinding>(
     override fun createObserver() {
         requestSearchViewModel.seachResultData.observe(viewLifecycleOwner, Observer { resultState ->
             parseState(resultState, {
-                swipeRefresh.isRefreshing = false
-                //请求成功，页码+1
+                mDatabind.includeList.includeRecyclerview.swipeRefresh.isRefreshing = false //请求成功，页码+1
                 requestSearchViewModel.pageNo++
-                if (it.isRefresh() && it.datas.size == 0) {
-                    //如果是第一页，并且没有数据，页面提示空布局
+                if (it.isRefresh() && it.datas.size == 0) { //如果是第一页，并且没有数据，页面提示空布局
                     loadsir.showEmpty()
-                } else if (it.isRefresh()) {
-                    //如果是刷新的，有数据
+                } else if (it.isRefresh()) { //如果是刷新的，有数据
                     loadsir.showSuccess()
                     articleAdapter.setList(it.datas)
-                } else {
-                    //不是第一页
+                } else { //不是第一页
                     loadsir.showSuccess()
                     articleAdapter.addData(it.datas)
                 }
-                recyclerView.loadMoreFinish(it.isEmpty(), it.hasMore())
-            }, {
-                //这里代表请求失败
-                swipeRefresh.isRefreshing = false
-                if (articleAdapter.data.size == 0) {
-                    //如果适配器数据没有值，则显示错误界面，并提示错误信息
+                mDatabind.includeList.includeRecyclerview.recyclerView.loadMoreFinish(it.isEmpty(), it.hasMore())
+            }, { //这里代表请求失败
+                mDatabind.includeList.includeRecyclerview.swipeRefresh.isRefreshing = false
+                if (articleAdapter.data.size == 0) { //如果适配器数据没有值，则显示错误界面，并提示错误信息
                     loadsir.setErrorText(it.errorMsg)
                     loadsir.showCallback(ErrorCallback::class.java)
                 } else {
-                    recyclerView.loadMoreError(0, it.errorMsg)
+                    mDatabind.includeList.includeRecyclerview.recyclerView.loadMoreError(0, it.errorMsg)
                 }
             })
         })
@@ -157,8 +147,7 @@ class SearchResultFragment : BaseFragment<SearchViewModel, FragmentListBinding>(
                 }
             }
         })
-        appViewModel.run {
-            //监听账户信息是否改变 有值时(登录)将相关的数据设置为已收藏，为空时(退出登录)，将已收藏的数据变为未收藏
+        appViewModel.run { //监听账户信息是否改变 有值时(登录)将相关的数据设置为已收藏，为空时(退出登录)，将已收藏的数据变为未收藏
             userInfo.observe(this@SearchResultFragment, Observer {
                 if (it != null) {
                     it.collectIds.forEach { id ->

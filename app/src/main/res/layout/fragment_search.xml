@@ -12,7 +12,9 @@
         android:background="@color/white"
         android:orientation="vertical">
 
-        <include layout="@layout/include_toolbar" />
+        <include
+            android:id="@+id/header"
+            layout="@layout/include_toolbar" />
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -48,7 +50,7 @@
                     android:scrollbars="none"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/search_text1"/>
+                    app:layout_constraintTop_toBottomOf="@+id/search_text1" />
 
                 <TextView
                     android:id="@+id/search_text2"
@@ -69,9 +71,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:scrollbars="none"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/search_text2" />
 
                 <TextView

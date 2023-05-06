@@ -1,7 +1,7 @@
 package me.hgj.jetpackmvvm.demo.viewmodel.request
 
-import androidx.lifecycle.MutableLiveData
 import me.hgj.jetpackmvvm.base.viewmodel.BaseViewModel
+import me.hgj.jetpackmvvm.callback.livedata.event.EventLiveData
 import me.hgj.jetpackmvvm.demo.app.network.apiService
 import me.hgj.jetpackmvvm.demo.app.network.stateCallback.ListDataUiState
 import me.hgj.jetpackmvvm.demo.app.network.stateCallback.UpdateUiState
@@ -18,13 +18,13 @@ class RequestAriticleViewModel : BaseViewModel() {
 
     var pageNo = 0
 
-    var addData = MutableLiveData<ResultState<Any?>>()
+    var addData = EventLiveData<ResultState<Any?>>()
 
     //分享的列表集合数据
-    var shareDataState = MutableLiveData<ListDataUiState<AriticleResponse>>()
+    var shareDataState = EventLiveData<ListDataUiState<AriticleResponse>>()
 
     //删除分享文章回调数据
-    var delDataState = MutableLiveData<UpdateUiState<Int>>()
+    var delDataState = EventLiveData<UpdateUiState<Int>>()
 
     fun addAriticle(shareTitle: String, shareUrl: String) {
         request(

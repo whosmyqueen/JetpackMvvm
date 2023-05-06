@@ -1,7 +1,7 @@
 package me.hgj.jetpackmvvm.demo.viewmodel.request
 
-import androidx.lifecycle.MutableLiveData
 import me.hgj.jetpackmvvm.base.viewmodel.BaseViewModel
+import me.hgj.jetpackmvvm.callback.livedata.event.EventLiveData
 import me.hgj.jetpackmvvm.demo.app.network.apiService
 import me.hgj.jetpackmvvm.demo.app.network.stateCallback.ListDataUiState
 import me.hgj.jetpackmvvm.demo.data.model.bean.AriticleResponse
@@ -24,10 +24,10 @@ class RequestHomeViewModel : BaseViewModel() {
     var pageNo = 0
 
     //首页文章列表数据
-    var homeDataState: MutableLiveData<ListDataUiState<AriticleResponse>> = MutableLiveData()
+    var homeDataState: EventLiveData<ListDataUiState<AriticleResponse>> = EventLiveData()
 
     //首页轮播图数据
-    var bannerData: MutableLiveData<ResultState<ArrayList<BannerResponse>>> = MutableLiveData()
+    var bannerData: EventLiveData<ResultState<ArrayList<BannerResponse>>> = EventLiveData()
 
     /**
      * 获取首页文章列表数据

@@ -6,12 +6,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.blankj.utilcode.util.ConvertUtils
 import com.kingja.loadsir.core.LoadService
 import com.yanzhenjie.recyclerview.SwipeRecyclerView
-import kotlinx.android.synthetic.main.include_list.*
-import kotlinx.android.synthetic.main.include_recyclerview.*
 import me.hgj.jetpackmvvm.demo.R
 import me.hgj.jetpackmvvm.demo.app.base.BaseFragment
 import me.hgj.jetpackmvvm.demo.app.eventViewModel
-import me.hgj.jetpackmvvm.demo.app.ext.*
+import me.hgj.jetpackmvvm.demo.app.ext.init
+import me.hgj.jetpackmvvm.demo.app.ext.initFloatBtn
+import me.hgj.jetpackmvvm.demo.app.ext.initFooter
+import me.hgj.jetpackmvvm.demo.app.ext.loadListData
+import me.hgj.jetpackmvvm.demo.app.ext.loadServiceInit
+import me.hgj.jetpackmvvm.demo.app.ext.showEmpty
+import me.hgj.jetpackmvvm.demo.app.ext.showLoading
+import me.hgj.jetpackmvvm.demo.app.ext.showMessage
 import me.hgj.jetpackmvvm.demo.app.weight.recyclerview.SpaceItemDecoration
 import me.hgj.jetpackmvvm.demo.data.model.bean.CollectBus
 import me.hgj.jetpackmvvm.demo.databinding.IncludeListBinding
@@ -32,25 +37,19 @@ class CollectAriticleFragment : BaseFragment<RequestCollectViewModel, IncludeLis
 
     private val articleAdapter: CollectAdapter by lazy { CollectAdapter(arrayListOf()) }
 
-    override fun initView(savedInstanceState: Bundle?)  {
-        //状态页配置
-        loadsir = loadServiceInit(swipeRefresh) {
-            //点击重试时触发的操作
+    override fun initView(savedInstanceState: Bundle?) { //状态页配置
+        loadsir = loadServiceInit(mDatabind.includeRecyclerview.swipeRefresh) { //点击重试时触发的操作
             loadsir.showLoading()
             mViewModel.getCollectAriticleData(true)
-        }
-        //初始化recyclerView
-        recyclerView.init(LinearLayoutManager(context), articleAdapter).let {
+        } //初始化recyclerView
+        mDatabind.includeRecyclerview.recyclerView.init(LinearLayoutManager(context), articleAdapter).let {
             it.addItemDecoration(SpaceItemDecoration(0, ConvertUtils.dp2px(8f)))
             it.initFooter(SwipeRecyclerView.LoadMoreListener {
                 mViewModel.getCollectAriticleData(false)
-            })
-            //初始化FloatingActionButton
-            it.initFloatBtn(floatbtn)
-        }
-        //初始化 SwipeRefreshLayout
-        swipeRefresh.init {
-            //触发刷新监听时请求数据
+            }) //初始化FloatingActionButton
+            it.initFloatBtn(mDatabind.floatbtn)
+        } //初始化 SwipeRefreshLayout
+        mDatabind.includeRecyclerview.swipeRefresh.init { //触发刷新监听时请求数据
             mViewModel.getCollectAriticleData(true)
         }
         articleAdapter.run {
@@ -63,8 +62,8 @@ class CollectAriticleFragment : BaseFragment<RequestCollectViewModel, IncludeLis
             }
             setOnItemClickListener { _, view, position ->
                 nav().navigateAction(R.id.action_to_webFragment, Bundle().apply {
-                        putParcelable("collect", articleAdapter.data[position])
-                    })
+                    putParcelable("collect", articleAdapter.data[position])
+                })
             }
         }
     }
@@ -75,13 +74,17 @@ class CollectAriticleFragment : BaseFragment<RequestCollectViewModel, IncludeLis
     }
 
     override fun createObserver() {
-        mViewModel.ariticleDataState.observe(viewLifecycleOwner, Observer {
-            //设值 新写了个拓展函数，搞死了这个恶心的重复代码
-            loadListData(it, articleAdapter, loadsir, recyclerView,swipeRefresh)
+        mViewModel.ariticleDataState.observe(viewLifecycleOwner, Observer { //设值 新写了个拓展函数，搞死了这个恶心的重复代码
+            loadListData(
+                it,
+                articleAdapter,
+                loadsir,
+                mDatabind.includeRecyclerview.recyclerView,
+                mDatabind.includeRecyclerview.swipeRefresh
+            )
         })
         mViewModel.collectUiState.observe(viewLifecycleOwner, Observer {
-            if (it.isSuccess) {
-                //收藏或取消收藏操作成功，发送全局收藏消息
+            if (it.isSuccess) { //收藏或取消收藏操作成功，发送全局收藏消息
                 eventViewModel.collectEvent.value = CollectBus(it.id, it.collect)
             } else {
                 showMessage(it.errorMsg)
@@ -93,8 +96,7 @@ class CollectAriticleFragment : BaseFragment<RequestCollectViewModel, IncludeLis
                 }
             }
         })
-        eventViewModel.run {
-            //监听全局的收藏信息 收藏的Id跟本列表的数据id匹配则 需要删除他 否则则请求最新收藏数据
+        eventViewModel.run { //监听全局的收藏信息 收藏的Id跟本列表的数据id匹配则 需要删除他 否则则请求最新收藏数据
             collectEvent.observe(this@CollectAriticleFragment, Observer {
                 for (index in articleAdapter.data.indices) {
                     if (articleAdapter.data[index].originId == it.id) {
