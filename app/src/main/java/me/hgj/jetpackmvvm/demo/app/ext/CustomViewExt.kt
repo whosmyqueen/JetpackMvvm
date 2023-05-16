@@ -14,7 +14,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,7 +22,6 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
 import com.kingja.loadsir.core.LoadService
 import com.kingja.loadsir.core.LoadSir
 import com.yanzhenjie.recyclerview.SwipeRecyclerView
@@ -31,12 +29,12 @@ import me.hgj.jetpackmvvm.base.appContext
 import me.hgj.jetpackmvvm.demo.R
 import me.hgj.jetpackmvvm.demo.app.network.stateCallback.ListDataUiState
 import me.hgj.jetpackmvvm.demo.app.util.SettingUtil
+import me.hgj.jetpackmvvm.demo.app.weight.bottomNavigationView.BottomNavigationViewEx
 import me.hgj.jetpackmvvm.demo.app.weight.loadCallBack.EmptyCallback
 import me.hgj.jetpackmvvm.demo.app.weight.loadCallBack.ErrorCallback
 import me.hgj.jetpackmvvm.demo.app.weight.loadCallBack.LoadingCallback
 import me.hgj.jetpackmvvm.demo.app.weight.recyclerview.DefineLoadMoreView
 import me.hgj.jetpackmvvm.demo.app.weight.viewpager.ScaleTransitionPagerTitleView
-import me.hgj.jetpackmvvm.demo.data.model.bean.ClassifyResponse
 import me.hgj.jetpackmvvm.demo.ui.fragment.home.HomeFragment
 import me.hgj.jetpackmvvm.demo.ui.fragment.me.MeFragment
 import me.hgj.jetpackmvvm.demo.ui.fragment.project.ProjectFragment
@@ -160,9 +158,9 @@ fun RecyclerView.initFloatBtn(floatbtn: FloatingActionButton) {
         val layoutManager = layoutManager as LinearLayoutManager
         //如果当前recyclerview 最后一个视图位置的索引大于等于40，则迅速返回顶部，否则带有滚动动画效果返回到顶部
         if (layoutManager.findLastVisibleItemPosition() >= 40) {
-            scrollToPosition(0)//没有动画迅速返回到顶部(马上)
+            scrollToPosition(0) //没有动画迅速返回到顶部(马上)
         } else {
-            smoothScrollToPosition(0)//有滚动动画返回到顶部(有点慢)
+            smoothScrollToPosition(0) //有滚动动画返回到顶部(有点慢)
         }
     }
 }
@@ -214,12 +212,14 @@ fun setUiTheme(color: Int, vararg anyList: Any?) {
                 is LoadService<*> -> SettingUtil.setLoadingColor(color, it as LoadService<Any>)
                 is FloatingActionButton -> it.backgroundTintList =
                     SettingUtil.getOneColorStateList(color)
+
                 is SwipeRefreshLayout -> it.setColorSchemeColors(color)
                 is DefineLoadMoreView -> it.setLoadViewColor(SettingUtil.getOneColorStateList(color))
                 is BottomNavigationViewEx -> {
                     it.itemIconTintList = SettingUtil.getColorStateList(color)
                     it.itemTextColor = SettingUtil.getColorStateList(color)
                 }
+
                 is Toolbar -> it.setBackgroundColor(color)
                 is TextView -> it.setTextColor(color)
                 is LinearLayout -> it.setBackgroundColor(color)
@@ -244,13 +244,15 @@ fun BaseQuickAdapter<*, *>.setAdapterAnimation(mode: Int) {
 fun MagicIndicator.bindViewPager2(
     viewPager: ViewPager2,
     mStringList: List<String> = arrayListOf(),
-    action: (index: Int) -> Unit = {}) {
+    action: (index: Int) -> Unit = {}
+) {
     val commonNavigator = CommonNavigator(appContext)
     commonNavigator.adapter = object : CommonNavigatorAdapter() {
 
         override fun getCount(): Int {
-            return  mStringList.size
+            return mStringList.size
         }
+
         override fun getTitleView(context: Context, index: Int): IPagerTitleView {
             return ScaleTransitionPagerTitleView(appContext).apply {
                 //设置文本
@@ -268,6 +270,7 @@ fun MagicIndicator.bindViewPager2(
                 }
             }
         }
+
         override fun getIndicator(context: Context): IPagerIndicator {
             return LinePagerIndicator(context).apply {
                 mode = LinePagerIndicator.MODE_EXACTLY
@@ -334,23 +337,29 @@ fun ViewPager2.initMain(fragment: Fragment): ViewPager2 {
                 0 -> {
                     return HomeFragment()
                 }
+
                 1 -> {
                     return ProjectFragment()
                 }
+
                 2 -> {
                     return TreeArrFragment()
                 }
+
                 3 -> {
                     return PublicNumberFragment()
                 }
+
                 4 -> {
                     return MeFragment()
                 }
+
                 else -> {
                     return HomeFragment()
                 }
             }
         }
+
         override fun getItemCount() = 5
     }
     return this
@@ -376,9 +385,9 @@ fun BottomNavigationViewEx.init(navigationItemSelectedAction: (Int) -> Unit): Bo
  * @receiver BottomNavigationViewEx
  * @param ids IntArray
  */
-fun BottomNavigationViewEx.interceptLongClick(vararg ids:Int) {
+fun BottomNavigationViewEx.interceptLongClick(vararg ids: Int) {
     val bottomNavigationMenuView: ViewGroup = (this.getChildAt(0) as ViewGroup)
-    for (index in ids.indices){
+    for (index in ids.indices) {
         bottomNavigationMenuView.getChildAt(index).findViewById<View>(ids[index]).setOnLongClickListener {
             true
         }

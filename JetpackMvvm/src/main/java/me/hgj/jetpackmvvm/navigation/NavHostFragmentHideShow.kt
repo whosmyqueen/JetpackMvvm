@@ -19,7 +19,7 @@ class NavHostFragmentHideShow : NavHostFragment() {
      * @return 使用自己的FragmentNavigator
      */
     override fun createFragmentNavigator(): Navigator<out FragmentNavigator.Destination> {
-        return FragmentNavigatorHideShow(requireContext(), childFragmentManager, containerId)
+        return FragmentNavigator(requireContext(), childFragmentManager, containerId)
     }
 
 

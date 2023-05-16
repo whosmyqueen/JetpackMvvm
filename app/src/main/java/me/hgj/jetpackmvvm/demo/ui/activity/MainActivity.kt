@@ -25,7 +25,7 @@ class MainActivity : BaseActivity1<MainViewModel, ActivityMainBinding>() {
     var exitTime = 0L
     override fun initView(savedInstanceState: Bundle?) {
         //进入首页检查更新
-        Beta.checkUpgrade(false, true)
+        //Beta.checkUpgrade(false, true)
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 val nav = Navigation.findNavController(this@MainActivity, R.id.host_fragment)

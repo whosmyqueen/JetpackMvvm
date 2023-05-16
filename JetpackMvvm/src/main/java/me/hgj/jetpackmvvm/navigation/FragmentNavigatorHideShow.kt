@@ -91,8 +91,7 @@ class FragmentNavigatorHideShow(
         val isSingleTopReplacement = (navOptions != null && !initialNavigation
                 && navOptions.shouldLaunchSingleTop()
                 && mBackStack.peekLast() == destId)
-        val isAdded: Boolean
-        isAdded = if (initialNavigation) {
+        val isAdded: Boolean = if (initialNavigation) {
             true
         } else if (isSingleTopReplacement) {
             // Single Top means we only want one instance on the back stack
@@ -102,7 +101,7 @@ class FragmentNavigatorHideShow(
                 // remove it from the back stack and put our replacement
                 // on the back stack in its place
                 mFragmentManager.popBackStack(
-                    generateBackStackName(mBackStack.size, mBackStack.peekLast()),
+                    mBackStack.peekLast()?.let { generateBackStackName(mBackStack.size, it) },
                     FragmentManager.POP_BACK_STACK_INCLUSIVE
                 )
                 ft.addToBackStack(generateBackStackName(mBackStack.size, destId))
@@ -114,7 +113,7 @@ class FragmentNavigatorHideShow(
         }
         if (navigatorExtras is Extras) {
             for ((key, value) in navigatorExtras.sharedElements) {
-                ft.addSharedElement(key!!, value!!)
+                ft.addSharedElement(key, value)
             }
         }
         ft.setReorderingAllowed(true)

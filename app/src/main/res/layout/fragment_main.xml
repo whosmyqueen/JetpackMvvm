@@ -15,7 +15,7 @@
             android:layout_height="0dp"
             android:layout_weight="1" />
 
-        <com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
+        <me.hgj.jetpackmvvm.demo.app.weight.bottomNavigationView.BottomNavigationViewEx
             android:id="@+id/mainBottom"
             android:layout_width="match_parent"
             android:layout_height="50dp"
