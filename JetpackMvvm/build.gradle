@@ -3,10 +3,10 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-parcelize'
 apply plugin: 'kotlin-kapt'
 android {
-    compileSdkVersion 33
+    compileSdk 34
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 33
+        minSdk 21
+        targetSdk 34
         consumerProguardFiles 'consumer-rules.pro'
     }
     buildFeatures {
@@ -33,21 +33,22 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
     //kotlin
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.core:core-ktx:1.12.0'
     //lifecycle
-    api 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
-    api 'androidx.lifecycle:lifecycle-common-java8:2.5.1'
-    api 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
+    api 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.2'
+    api 'androidx.lifecycle:lifecycle-common-java8:2.6.2'
+    api 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2'
     api 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    api "androidx.viewpager2:viewpager2:1.0.0"
     // viewModel
-    api "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
-    api "androidx.fragment:fragment-ktx:1.5.5"
+    api "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2"
+    api "androidx.fragment:fragment-ktx:1.6.1"
     // liveData
-    api "androidx.lifecycle:lifecycle-livedata-ktx:2.4.1"
+    api "androidx.lifecycle:lifecycle-livedata-ktx:2.6.2"
     api 'com.kunminx.arch:unpeek-livedata:7.8.0'
     //navigation
-    api 'androidx.navigation:navigation-fragment-ktx:2.6.0-alpha05'
-    api 'androidx.navigation:navigation-ui-ktx:2.6.0-alpha05'
+    api 'androidx.navigation:navigation-fragment-ktx:2.6.0'
+    api 'androidx.navigation:navigation-ui-ktx:2.6.0'
     //retrofit
     api "com.squareup.retrofit2:retrofit:2.9.0"
     api "com.squareup.retrofit2:converter-gson:2.9.0"
