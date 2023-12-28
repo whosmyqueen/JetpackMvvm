@@ -11,7 +11,6 @@ android {
         targetSdk 34
         versionCode 27
         versionName "1.2.7"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
       /* ndk {
             // 设置支持的SO库架构
             abiFilters 'armeabi','armeabi-v7a'
@@ -66,9 +65,6 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.12.0'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.6.0'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.6.0'
-    api "androidx.viewpager2:viewpager2:1.0.0"
     //androidx UI
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
