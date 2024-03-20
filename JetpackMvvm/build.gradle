@@ -43,7 +43,7 @@ dependencies {
     api "androidx.viewpager2:viewpager2:1.1.0-beta02"
     // viewModel
     api "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle"
-    implementation "androidx.fragment:fragment-ktx:1.6.2"
+    api "androidx.fragment:fragment-ktx:1.6.2"
     // liveData
     api "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle"
     api "com.kunminx.arch:unpeek-livedata:7.8.0"
