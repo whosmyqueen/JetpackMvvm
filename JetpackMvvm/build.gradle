@@ -56,8 +56,8 @@ dependencies {
     api "androidx.navigation:navigation-ui-ktx:$nav_version"
     api 'com.kunminx.arch:smooth-navigation:4.0.0'
     //retrofit
-    api "com.squareup.retrofit2:retrofit:2.9.0"
-    api "com.squareup.retrofit2:converter-gson:2.9.0"
+    api "com.squareup.retrofit2:retrofit:2.10.0"
+    api "com.squareup.retrofit2:converter-gson:2.10.0"
     api "com.github.franmontiel:PersistentCookieJar:v1.0.1"
     //动态替换BaseUrl库 使用可参考 https://github.com/JessYanCoding/RetrofitUrlManager
     api "me.jessyan:retrofit-url-manager:1.4.0"

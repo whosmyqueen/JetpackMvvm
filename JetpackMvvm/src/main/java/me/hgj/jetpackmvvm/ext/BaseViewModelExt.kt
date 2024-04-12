@@ -35,7 +35,7 @@ import me.hgj.jetpackmvvm.state.paresResult
  */
 fun <T> BaseVmActivity<*>.parseState(
     resultState: ResultState<T>,
-    onSuccess: (T) -> Unit,
+    onSuccess: (T?) -> Unit,
     onError: ((AppException) -> Unit)? = null,
     onLoading: (() -> Unit)? = null
 ) {
@@ -67,7 +67,7 @@ fun <T> BaseVmActivity<*>.parseState(
  */
 fun <T> BaseVmFragment<*>.parseState(
     resultState: ResultState<T>,
-    onSuccess: (T) -> Unit,
+    onSuccess: (T?) -> Unit,
     onError: ((AppException) -> Unit)? = null,
     onLoading: ((message: String) -> Unit)? = null
 ) {
@@ -161,7 +161,7 @@ fun <T> BaseViewModel.requestNoCheck(
  */
 fun <T> BaseViewModel.request(
     block: suspend () -> BaseResponse<T>,
-    success: (T) -> Unit,
+    success: (T?) -> Unit,
     error: (AppException) -> Unit = {},
     isShowDialog: Boolean = false,
     loadingMessage: String = "请求网络中...",
@@ -251,11 +251,11 @@ fun <T> BaseViewModel.requestNoCheck(
  */
 suspend fun <T> executeResponse(
     response: BaseResponse<T>,
-    success: suspend CoroutineScope.(T) -> Unit
+    success: suspend CoroutineScope.(T?) -> Unit
 ) {
     coroutineScope {
         when {
-            response.isSucces() -> {
+            response.isSuccess() -> {
                 success(response.getResponseData())
             }
 
