@@ -35,7 +35,7 @@ import me.hgj.jetpackmvvm.state.paresResult
  */
 fun <T> BaseVmActivity<*>.parseState(
     resultState: ResultState<T>,
-    onSuccess: (T?) -> Unit,
+    onSuccess: (T) -> Unit,
     onError: ((AppException) -> Unit)? = null,
     onLoading: (() -> Unit)? = null
 ) {
@@ -47,7 +47,11 @@ fun <T> BaseVmActivity<*>.parseState(
 
         is ResultState.Success -> {
             dismissLoading()
-            onSuccess(resultState.data)
+            if (resultState.data == null) {
+                onError?.run { onError(AppException(600, "data为空")) }
+            } else {
+                onSuccess(resultState.data)
+            }
         }
 
         is ResultState.Error -> {
@@ -67,7 +71,7 @@ fun <T> BaseVmActivity<*>.parseState(
  */
 fun <T> BaseVmFragment<*>.parseState(
     resultState: ResultState<T>,
-    onSuccess: (T?) -> Unit,
+    onSuccess: (T) -> Unit,
     onError: ((AppException) -> Unit)? = null,
     onLoading: ((message: String) -> Unit)? = null
 ) {
@@ -82,7 +86,11 @@ fun <T> BaseVmFragment<*>.parseState(
 
         is ResultState.Success -> {
             dismissLoading()
-            onSuccess(resultState.data)
+            if (resultState.data == null) {
+                onError?.run { onError(AppException(600, "data为空")) }
+            } else {
+                onSuccess(resultState.data)
+            }
         }
 
         is ResultState.Error -> {
