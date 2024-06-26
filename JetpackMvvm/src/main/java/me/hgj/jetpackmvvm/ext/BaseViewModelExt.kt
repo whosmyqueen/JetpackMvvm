@@ -169,7 +169,7 @@ fun <T> BaseViewModel.requestNoCheck(
  */
 fun <T> BaseViewModel.request(
     block: suspend () -> BaseResponse<T>,
-    success: (T?) -> Unit,
+    success: (T) -> Unit,
     error: (AppException) -> Unit = {},
     isShowDialog: Boolean = false,
     loadingMessage: String = "请求网络中...",
@@ -259,12 +259,22 @@ fun <T> BaseViewModel.requestNoCheck(
  */
 suspend fun <T> executeResponse(
     response: BaseResponse<T>,
-    success: suspend CoroutineScope.(T?) -> Unit
+    success: suspend CoroutineScope.(T) -> Unit
 ) {
     coroutineScope {
         when {
             response.isSuccess() -> {
-                success(response.getResponseData())
+                response.getResponseData().let {
+                    if (it == null) {
+                        throw AppException(
+                            response.getResponseCode(),
+                            "data为空",
+                            "data为空"
+                        )
+                    } else {
+                        success(it)
+                    }
+                }
             }
 
             else -> {

@@ -12,7 +12,7 @@ import me.hgj.jetpackmvvm.network.ExceptionHandle
  */
 sealed class ResultState<out T> {
     companion object {
-        fun <T> onAppSuccess(data: T?): ResultState<T> = Success(data)
+        fun <T> onAppSuccess(data: T): ResultState<T> = Success(data)
         fun <T> onAppLoading(loadingMessage: String): ResultState<T> = Loading(loadingMessage)
         fun <T> onAppError(error: AppException): ResultState<T> = Error(error)
     }
@@ -29,7 +29,14 @@ sealed class ResultState<out T> {
 fun <T> EventLiveData<ResultState<T>>.paresResult(result: BaseResponse<T>) {
     value = when {
         result.isSuccess() -> {
-            ResultState.onAppSuccess(result.getResponseData())
+            result.getResponseData().let {
+                if (it == null) {
+                    ResultState.onAppError(AppException(result.getResponseCode(), "data为空"))
+                } else {
+                    ResultState.onAppSuccess(it)
+                }
+            }
+
         }
 
         else -> {
