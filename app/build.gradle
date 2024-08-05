@@ -7,7 +7,7 @@ android {
     compileSdk 34
     defaultConfig {
         applicationId "me.hgj.jetpackmvvm.demo"
-        minSdk 21
+        minSdk 25
         targetSdk 34
         versionCode 27
         versionName "1.2.7"

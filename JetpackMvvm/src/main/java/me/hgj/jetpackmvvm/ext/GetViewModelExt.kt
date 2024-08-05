@@ -12,8 +12,8 @@ import java.lang.reflect.ParameterizedType
  * 获取当前类绑定的泛型ViewModel-clazz
  */
 @Suppress("UNCHECKED_CAST")
-fun <VM> getVmClazz(obj: Any): VM {
-    return (obj.javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[0] as VM
+fun <VM> getVmClazz(obj: Any): Class<VM> {
+    return (obj.javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[0] as Class<VM>
 }
 
 /**
@@ -72,7 +72,8 @@ inline fun <reified VM : BaseViewModel> Fragment.getViewModel(): VM {
  */
 @Deprecated("已过时的方法，现在可以直接使用Ktx函数 activityViewModels()获取")
 inline fun <reified VM : BaseViewModel> Fragment.getActivityViewModel(): VM {
-    return ViewModelProvider(requireActivity(),
+    return ViewModelProvider(
+        requireActivity(),
         ViewModelProvider.AndroidViewModelFactory(this.requireActivity().application)
     ).get(VM::class.java)
 }
