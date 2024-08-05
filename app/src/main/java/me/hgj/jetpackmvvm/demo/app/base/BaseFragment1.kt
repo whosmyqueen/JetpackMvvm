@@ -1,9 +1,7 @@
 package me.hgj.jetpackmvvm.demo.app.base
 
 import android.os.Bundle
-import androidx.databinding.ViewDataBinding
 import androidx.viewbinding.ViewBinding
-import me.hgj.jetpackmvvm.base.fragment.BaseVmDbFragment
 import me.hgj.jetpackmvvm.base.fragment.BaseVmVbFragment
 import me.hgj.jetpackmvvm.base.viewmodel.BaseViewModel
 import me.hgj.jetpackmvvm.demo.app.ext.dismissLoadingExt

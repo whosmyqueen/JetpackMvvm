@@ -32,9 +32,9 @@ android {
         }
 
         release {
-            minifyEnabled true//开启混淆
-            shrinkResources true
-            zipAlignEnabled true//去除无用资源
+            minifyEnabled false//开启混淆
+            shrinkResources false
+            zipAlignEnabled false//去除无用资源
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -44,15 +44,6 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
-    }
-    dexOptions {
-        javaMaxHeapSize "4g"
-        jumboMode = true
-        preDexLibraries = false
-        additionalParameters = [
-                '--multi-dex',//多分包
-                '--set-max-idx-number=60000'//每个包内方法数上限
-        ]
     }
     namespace 'me.hgj.jetpackmvvm.demo'
     lint {
@@ -64,11 +55,11 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.13.1'
+    implementation 'androidx.core:core-ktx:1.12.0'
     //androidx UI
-    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'com.google.android.material:material:1.12.0'
+    implementation 'com.google.android.material:material:1.11.0'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
     implementation 'androidx.preference:preference-ktx:1.2.1'

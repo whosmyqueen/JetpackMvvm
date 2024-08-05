@@ -3,8 +3,6 @@ package me.hgj.jetpackmvvm.demo.data.repository.request
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
-import me.hgj.jetpackmvvm.demo.app.network.ApiService
-import me.hgj.jetpackmvvm.demo.app.network.NetworkApi
 import me.hgj.jetpackmvvm.demo.app.network.apiService
 import me.hgj.jetpackmvvm.demo.app.util.CacheUtil
 import me.hgj.jetpackmvvm.demo.data.model.bean.ApiPagerResponse
@@ -48,7 +46,7 @@ class HttpRequestManger {
     suspend fun register(username: String, password: String): ApiResponse<UserInfo> {
         val registerData = apiService.register(username, password, password)
         //判断注册结果 注册成功，调用登录接口
-        if (registerData.isSucces()) {
+        if (registerData.isSuccess()) {
             return apiService.login(username, password)
         } else {
             //抛出错误异常

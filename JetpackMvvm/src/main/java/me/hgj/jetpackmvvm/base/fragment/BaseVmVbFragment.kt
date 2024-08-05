@@ -27,7 +27,7 @@ abstract class BaseVmVbFragment<VM : BaseViewModel, VB : ViewBinding> : BaseVmFr
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding  = inflateBindingWithGeneric(inflater,container,false)
+        _binding = inflateBindingWithGeneric(inflater, container, false)
         return mViewBind.root
     }
 
