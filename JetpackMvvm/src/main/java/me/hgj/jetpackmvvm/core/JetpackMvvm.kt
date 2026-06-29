@@ -44,16 +44,20 @@ object JetpackMvvm {
             XLog.init(value)
             LogUtils.setLog(value)
         }
+
     /**
      * 框架初始化
      * @param application Application 全局上下文
      */
-    fun init(application: Application) {
+    fun init(application: Application, mmkvRootPath: String = "") {
         app = application
         //日志开关
         jetpackMvvmLogEnable = isApkInDebug
-        //初始化MMKV
-        MMKV.initialize(app)
+        if (mmkvRootPath.isNotEmpty()) {
+            MMKV.initialize(app, mmkvRootPath)
+        } else {
+            MMKV.initialize(app)
+        }
         //注册全局 activity生命周期监听
         application.registerActivityLifecycleCallbacks(KtxActivityLifecycleCallbacks())
         //注册全局默认的 错误 空 加载中 状态布局
