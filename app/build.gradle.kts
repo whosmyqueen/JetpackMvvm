@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.navigation.safeargs) //导航组件 SafeArgs 插件 ,不使用navigation的话，这个插件可以不导入
 }
 
 android {

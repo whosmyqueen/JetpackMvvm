@@ -32,10 +32,12 @@ import me.hgj.jetpackmvvm.ext.view.visibleOrGone
  *  @param onCollectClick 点击收藏回调
  *  @param onBannerInit Banner初始化绑定生命周期
  */
-fun RecyclerView.articleAdapter(showTag: Boolean = false,
-                                canJumpLookInfo: Boolean = true,
-                                onCollectClick: (ArticleResponse, Boolean, (Boolean) -> Unit) -> Unit = { _, _, _ ->},
-                                onBannerInit: ((BannerViewPager<BannerResponse>) -> Unit)? = null) =
+fun RecyclerView.articleAdapter(
+    showTag: Boolean = false,
+    canJumpLookInfo: Boolean = true,
+    onCollectClick: (ArticleResponse, Boolean, (Boolean) -> Unit) -> Unit = { _, _, _ -> },
+    onBannerInit: ((BannerViewPager<BannerResponse>) -> Unit)? = null
+) =
     this.setup {
         addType<ArticleResponse> {
             if (envelopePic.isEmpty()) {
@@ -113,20 +115,24 @@ fun RecyclerView.articleAdapter(showTag: Boolean = false,
                 itemProjectImageview.load(model.envelopePic)
             }
             getBindingOrNull<IncludeBannerBinding>()?.run {
-                    val mViewPager: BannerViewPager<BannerResponse> = this.bannerView as BannerViewPager<BannerResponse>
-                    val model = getModel<BannerParentResponse>()
-                    mViewPager.adapter = HomeBannerAdapter()
-                    onBannerInit?.invoke(mViewPager)
-                    mViewPager.setOnPageClickListener { _, position ->
-                        WebActivity.start(banner = model.banners[position])
-                    }
-                    mViewPager.create(model.banners)
+                val mViewPager: BannerViewPager<BannerResponse> = this.bannerView as BannerViewPager<BannerResponse>
+                val model = getModel<BannerParentResponse>()
+                mViewPager.adapter = HomeBannerAdapter()
+                onBannerInit?.invoke(mViewPager)
+                mViewPager.setOnPageClickListener { _, position ->
+                    WebActivity.start(banner = model.banners[position])
+                }
+                mViewPager.create(model.banners)
             }
         }
         onClick(R.id.item_home_author, R.id.item_project_author) {
-            if(!canJumpLookInfo) return@onClick
+            if (!canJumpLookInfo) return@onClick
             val model = getModel<ArticleResponse>()
-            nav(this@articleAdapter).navigate(MainNavigationDirections.toLookInfoFragment(model.userId,model.author.ifEmpty { model.shareUser }))
+            nav(this@articleAdapter).navigate(
+                MainNavigationDirections.toLookInfoFragment(
+                    model.userId,
+                    model.author.ifEmpty { model.shareUser })
+            )
         }
         onClick(R.id.item_article_root, R.id.item_project_root) {
             WebActivity.start(article = getModel<ArticleResponse>())
