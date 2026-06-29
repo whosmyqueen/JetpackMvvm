@@ -79,8 +79,8 @@ dependencies {
     implementation(libs.androidx.navigation.ui.ktx)
 
     //项目核心框架
-//    implementation(project(":JetpackMvvm"))
-    implementation(libs.jetpackmvvm)
+    implementation(project(":JetpackMvvm"))
+//    implementation(libs.jetpackmvvm)
 
     //网络请求，JetpackMvvm 框架不再内置引入网络框架，大家可以自行选择Retrofit或者其他优秀的第三方网络框架 比如RxHttp，Net等
     //================================网络框架 sart ===========================//
