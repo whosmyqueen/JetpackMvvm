@@ -57,6 +57,7 @@ class Cache<T : Any>(
                 default.javaClass as Class<Parcelable>,
                 default
             ) as T
+
             else -> throw IllegalArgumentException("Unsupported type: ${default::class.java}")
         }
     }
@@ -85,9 +86,9 @@ class Cache<T : Any>(
  * ```
  */
 inline fun <reified T> cacheNullable(
-    default: T? = null,
+    default: T,
     key: String? = null
-): ReadWriteProperty<Any?, T?> = CacheNullable(T::class.java, default, key)
+): ReadWriteProperty<Any?, T> = CacheNullable(T::class.java, default, key)
 
 
 /**
@@ -111,12 +112,12 @@ inline fun <reified T> cacheNullable(
  */
 class CacheNullable<T>(
     private val clazz: Class<T>,
-    private val default: T? = null,
+    private val default: T,
     private val key: String? = null,
-) : ReadWriteProperty<Any?, T?> {
+) : ReadWriteProperty<Any?, T> {
 
     @Suppress("UNCHECKED_CAST")
-    override fun getValue(thisRef: Any?, property: KProperty<*>): T? {
+    override fun getValue(thisRef: Any?, property: KProperty<*>): T {
         val actualKey = key ?: property.name
 
         // 如果有默认值，使用默认值类型
@@ -125,7 +126,7 @@ class CacheNullable<T>(
         }
 
         // 没有默认值，使用显式指定的类型
-        return decodeByClass(actualKey, clazz)
+        return decodeByClass(actualKey, clazz) ?: default
     }
 
     @Suppress("UNCHECKED_CAST")
@@ -144,6 +145,7 @@ class CacheNullable<T>(
                 default.javaClass as Class<Parcelable>,
                 default
             ) as R
+
             else -> throw IllegalArgumentException("Unsupported type: ${default!!::class.java}")
         }
     }
@@ -166,11 +168,12 @@ class CacheNullable<T>(
             Parcelable::class.java.isAssignableFrom(clazz) -> {
                 mmkv.decodeParcelable(key, clazz as Class<Parcelable>, null) as R
             }
+
             else -> throw IllegalArgumentException("Unsupported type: $clazz")
         }
     }
 
-    override fun setValue(thisRef: Any?, property: KProperty<*>, value: T?) {
+    override fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
         val actualKey = key ?: property.name
 
         if (value == null) {
